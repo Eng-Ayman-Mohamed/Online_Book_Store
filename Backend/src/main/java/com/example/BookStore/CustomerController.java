@@ -1,5 +1,6 @@
 package com.example.BookStore;
 
+import com.example.BookStore.objects.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -10,26 +11,28 @@ public class CustomerController {
 
 // get customer by id
     @GetMapping("/get/{id}")
-    public String getCustomer( @PathVariable("id") int id) {
-        return "Hello Customer";
+    public Customer getCustomer(@PathVariable int id) {
+        return new Customer();
     }
+
 
 
     //1. Edit his personal information including his password
     @PutMapping("/editCustomer")
-    public String editCustomer(@RequestBody String customer) {
-        return "Hello Customer";
-    }
-    //2. Search for books by any of the book’s attributes. (Use indices to speed up searches when possible)
-    @GetMapping("/search")
-    public ArrayList<String> searchBook(@RequestBody String book) {
-        return new ArrayList<String>();
+    public boolean editCustomer(@RequestBody Customer customer) {
+        return true;
     }
 
-    @GetMapping("/getBooks")
-    public ArrayList<String> getBooks() {
-        return new ArrayList<>();
+    //2. Search for books by any of the book’s attributes. (Use indices to speed up searches when possible)
+    @GetMapping("/search")
+    public ArrayList<Book> searchBook(@RequestBody Book book) {
+        return new ArrayList<Book>();
     }
+    @GetMapping("/getBooks")
+       public ArrayList<Book> getBooks() {
+            return new ArrayList<Book>();
+    }
+    //3. View the details of a book
     /**
      * this if card stored in db
      * 3. View the details of a card information
@@ -38,41 +41,43 @@ public class CustomerController {
      */
     //3. Add books to a shopping cart
     @PostMapping("/addToCart")
-    public String addBookToShopping(@RequestBody String book) {
-        return "Hello Customer";
+    public boolean addToCart(@RequestBody Book book) {
+        return true;
+    }
+    //4. Remove books from a shopping cart
+    @PutMapping("/removeFromCart")
+    public boolean removeFromCart(@RequestBody Book book) {
+        return true;
     }
     //4. Manage his shopping cart. This includes the following.
     //* • View the items in the cart
     @GetMapping("/viewCart ")
-    public String viewCart( @PathVariable String cart) {
-        return "Hello Customer";
+    public ArrayList<Book> viewCart() {
+        return new ArrayList<Book>();
     }
     //* • View the individual and total prices of the books in the cart
     @GetMapping("/viewCartPrice")
-    public ArrayList<String> viewCartPrice() {
-        return new ArrayList<String>();
+    public double viewCartPrice() {
+        return 0;
     }
-    //* • Remove items from the cart
-    @DeleteMapping("/removeFromCart")
-    public String removeBookFromCart(@RequestBody String book) {
-        return "Hello Customer";
-    }
+
     //5. Checkout a shopping cart
     //* • The customer is then required to provide a credit card number and its expiry date.
     //* This transaction is completed successfully if the credit card information is appropriate.
     @PostMapping("/checkout")
-    public String checkout(@RequestBody String creditCard) {
-        return "Hello Customer";
+    public boolean checkout(@RequestBody  Order order) {
+        return true;
     }
     //* • The book’s quantities in the store are updated according to this transaction.
     @PutMapping("/updateQuantity")
-    public String updateQuantity(@RequestBody String book) {
-        return "Hello Customer";
+    public boolean updateQuantity(@RequestBody Book book) {
+        return true;
     }
     //6. Logout of the system
-    @GetMapping("/logout")
-    public String logout() {
-        return "Hello Customer";
+    @GetMapping("/logout/{id}")
+    public boolean logout( @PathVariable int id) {
+
+        return true;
     }
 
 }
