@@ -7,9 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class CustomerRepo {
-    DBConnection connection = new DBConnection();
+    DBConnection connection;
 
-    Customer Sign_in(String username, String password, String user) throws SQLException {
+    public void setConnection(DBConnection connection) {
+        this.connection = connection;
+    }
+
+    Customer Sign_in(String username, String password) throws SQLException {
         String query = query = "SELECT * FROM `Customer` WHERE username = '" + username + "' AND password = '" + password + "'";
         connection.connect();
         Statement statement = connection.getStatement();
@@ -32,6 +36,6 @@ public class CustomerRepo {
 
     public static void main(String[] args) throws SQLException {
         CustomerRepo customerRepo = new CustomerRepo();
-        System.out.println(customerRepo.Sign_in("ab", "12", "customer").getLName());
+        System.out.println(customerRepo.Sign_in("ab", "12").getLName());
     }
 }
