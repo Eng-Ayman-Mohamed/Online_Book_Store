@@ -6,4 +6,6 @@ public class Manager {
     String address;
     String phone;
     String password;
+    String username;
+
 }

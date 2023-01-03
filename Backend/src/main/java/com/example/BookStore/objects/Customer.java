@@ -7,4 +7,5 @@ public class Customer {
     String phone;
     String password;
     String username;
+    boolean isManager;
 }
