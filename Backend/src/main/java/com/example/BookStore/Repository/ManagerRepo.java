@@ -2,7 +2,6 @@ package com.example.BookStore.Repository;
 
 import com.example.BookStore.Models.Book;
 import com.example.BookStore.Models.Customer;
-import com.example.BookStore.Models.shopping_cart;
 
 import java.util.ArrayList;
 
@@ -34,7 +33,7 @@ public class ManagerRepo {
             while (resultSet.next()){
                 Customer customer = new Customer();
                 customer.setUserName(resultSet.getString(1));
-                customer.setFName(resultSet.getString(2));
+                customer.setFname(resultSet.getString(2));
                 customer.setEmail(resultSet.getString(3));
                 customer.setAddress(resultSet.getString(4));
                 customer.setPhone(resultSet.getString(5));

@@ -15,6 +15,7 @@ export const VaidateAdress = (address = "") =>
 function SignUp() {
   let nav = useNavigate();
   const [Error, setError] = React.useState(false);
+  //userName, Phone, FName, LName, email, Password, promoted, Address, PromoteMN
   let [info, setInfo] = React.useState({
     name: "",
     email: "",

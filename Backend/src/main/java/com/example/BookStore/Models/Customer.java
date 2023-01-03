@@ -3,14 +3,30 @@ package com.example.BookStore.Models;
 public class Customer {
 
     private String userName;
-    private String Phone;
-    private String FName;
-    private String LName;
+    private String phone;
+    private String fname;
+    private String lname;
     private String email;
-    private String Password;
+    private String password;
     private int promoted;
-    private String PromoteMN;
-    private String Address;
+    private String promoteMN;
+    private String address;
+
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
 
     public String getUserName() {
         return userName;
@@ -21,28 +37,14 @@ public class Customer {
     }
 
     public String getPhone() {
-        return Phone;
+        return phone;
     }
 
-    public void setPhone(String phone) {
-        Phone = phone;
+    public void setPhone(String Phone) {
+        this.phone = Phone;
     }
 
-    public String getFName() {
-        return FName;
-    }
 
-    public void setFName(String FName) {
-        this.FName = FName;
-    }
-
-    public String getLName() {
-        return LName;
-    }
-
-    public void setLName(String LName) {
-        this.LName = LName;
-    }
 
     public String getEmail() {
         return email;
@@ -53,11 +55,11 @@ public class Customer {
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
-    public void setPassword(String password) {
-        Password = password;
+    public void setPassword(String Password) {
+        this.password = Password;
     }
 
     public int isPromoted() {
@@ -69,11 +71,11 @@ public class Customer {
     }
 
     public String getPromoteMN() {
-        return PromoteMN;
+        return promoteMN;
     }
 
     public void setPromoteMN(String promoteMN) {
-        PromoteMN = promoteMN;
+        this.promoteMN = promoteMN;
     }
 
     public int getPromoted() {
@@ -81,10 +83,10 @@ public class Customer {
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 }
