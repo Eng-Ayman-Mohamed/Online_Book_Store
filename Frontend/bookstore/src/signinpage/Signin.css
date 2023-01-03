@@ -8,6 +8,13 @@
   overflow: hidden;
   position: relative;
 }
+.check-boxs {
+  display: flex;
+  width: 70%;
+  font-size: 25px;
+  font-weight: 700;
+  justify-content: space-around;
+}
 
 
 .form-container {
