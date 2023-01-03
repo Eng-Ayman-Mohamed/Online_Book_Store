@@ -1,6 +1,6 @@
 package com.example.BookStore;
 
-import com.example.BookStore.objects.*;
+import com.example.BookStore.Models.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -24,6 +24,31 @@ public class CustomerController {
     }
 
     //2. Search for books by any of the book’s attributes. (Use indices to speed up searches when possible)
+    // search by title
+    @GetMapping("/searchByTitle/{title}")
+    public ArrayList<Book> searchByTitle(@PathVariable String title) {
+        return new ArrayList<>();
+    }
+    // search by author
+    @GetMapping("/searchByAuthor/{author}")
+    public ArrayList<Book> searchByAuthor(@PathVariable String author) {
+        return new ArrayList<>();
+    }
+    // search by category
+    @GetMapping("/searchByCategory/{category}")
+    public ArrayList<Book> searchByCategory(@PathVariable String category) {
+        return new ArrayList<>();
+    }
+    // search by price
+    @GetMapping("/searchByPrice/{price}")
+    public ArrayList<Book> searchByPrice(@PathVariable int price) {
+        return new ArrayList<>();
+    }
+    // search by publisher
+    @GetMapping("/searchByPublisher/{publisher}")
+    public ArrayList<Book> searchByPublisher(@PathVariable String publisher) {
+        return new ArrayList<>();
+    }
     @GetMapping("/search")
     public ArrayList<Book> searchBook(@RequestBody Book book) {
         return new ArrayList<Book>();
@@ -65,7 +90,7 @@ public class CustomerController {
     //* • The customer is then required to provide a credit card number and its expiry date.
     //* This transaction is completed successfully if the credit card information is appropriate.
     @PostMapping("/checkout")
-    public boolean checkout(@RequestBody  Order order) {
+    public boolean checkout(@RequestBody  Cart cart) {
         return true;
     }
     //* • The book’s quantities in the store are updated according to this transaction.
