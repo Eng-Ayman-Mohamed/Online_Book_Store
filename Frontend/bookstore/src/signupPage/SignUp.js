@@ -67,7 +67,7 @@ function SignUp() {
     ) {
       return;
     }
-    let result = await fetch(`${environment.Host}/signup`, {
+    let result = await fetch(`${environment.Host}/sign/up`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

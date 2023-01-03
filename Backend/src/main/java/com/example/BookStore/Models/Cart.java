@@ -1,12 +1,13 @@
 package com.example.BookStore.Models;
 
 
+import java.sql.Date;
 
 public class Cart {
 
     private int id;
     Customer customer;
-    //Date date;
+    Date date;
     int total_price;
     String credit_num;
     String credit_exp_date;
