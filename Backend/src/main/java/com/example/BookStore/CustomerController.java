@@ -90,7 +90,7 @@ public class CustomerController {
     //* • The customer is then required to provide a credit card number and its expiry date.
     //* This transaction is completed successfully if the credit card information is appropriate.
     @PostMapping("/checkout")
-    public boolean checkout(@RequestBody  Cart cart) {
+    public boolean checkout(@RequestBody  shopping_cart cart) {
         return true;
     }
     //* • The book’s quantities in the store are updated according to this transaction.

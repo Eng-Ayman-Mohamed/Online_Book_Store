@@ -30,8 +30,8 @@ public class CustomerRepo {
         return null;
     }
 
-    public static void main(String[] args) throws SQLException {
-        CustomerRepo customerRepo = new CustomerRepo();
-        System.out.println(customerRepo.Sign_in("ab", "12", "customer").getLName());
-    }
+//    public static void main(String[] args) throws SQLException {
+//        CustomerRepo customerRepo = new CustomerRepo();
+//        System.out.println(customerRepo.Sign_in("ab", "12", "customer").getLName());
+//    }
 }
