@@ -26,22 +26,22 @@ public class ManagerController {
     }
     //* 3. Place orders for books
     @PostMapping("/placeOrder")
-    public boolean placeOrder(@RequestBody Cart cart) {
+    public boolean placeOrder(@RequestBody Order cart) {
         return true;
     }
     //* 4. Confirm orders
     @PutMapping("/confirmOrder")
-    public boolean confirmOrder(@RequestBody Cart cart) {
+    public boolean confirmOrder(@RequestBody Order cart) {
         return true;
     }
     //* 5. Cancel orders
     @PutMapping("/cancelOrder")
-    public boolean cancelOrder(@RequestBody Cart cart) {
+    public boolean cancelOrder(@RequestBody Order cart) {
         return true;
     }
     //* 6. View all orders
     @GetMapping("/viewOrders")
-    public ArrayList<Cart> getOrders() {
+    public ArrayList<Order> getOrders() {
         return new ArrayList<>();
     }
 
@@ -59,7 +59,7 @@ public class ManagerController {
     //* 6. View the following reports on sales
     //*  The total sales for books in the previous month
     @GetMapping("/totalSales")
-    public ArrayList<Cart> totalSales() {
+    public ArrayList<Order> totalSales() {
         return new ArrayList<>();
     }
     //* b. The top 5 customers who purchase the most purchase amount in descending order for the last three months
