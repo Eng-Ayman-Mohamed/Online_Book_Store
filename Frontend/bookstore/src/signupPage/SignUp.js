@@ -23,6 +23,7 @@ function SignUp() {
     password: "",
     username:""
   });
+  const [User, setuser] = React.useState("customer");
   let [errors, setErrors] = React.useState({
     mail: false,
     password: false,
@@ -67,7 +68,8 @@ function SignUp() {
     ) {
       return;
     }
-    let result = await fetch(`${environment.Host}/sign/up`, {
+    let route = User==="customer"? "up": "upManager";
+    let result = await fetch(`${environment.Host}/sign/${route}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -166,6 +168,12 @@ function SignUp() {
               Invalid address: address should contain only alphabets, digits and
               the # symbol.
             </div>
+          </div>
+          <div className='check-boxs'>
+            <div >
+              <input className="checkbox" type="checkbox" checked={User === "customer"} onChange={() => setuser("customer")} /> Customer</div>
+            <div>
+              <input className="checkbox" type="checkbox" checked={User === "manager"} onChange={() => setuser("manager")} /> Manager</div>
           </div>
           <input
             className="btn-submit"

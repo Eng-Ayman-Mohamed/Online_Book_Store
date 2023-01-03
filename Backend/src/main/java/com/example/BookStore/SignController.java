@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 public class SignController {
 
       Customer customer = new Customer();
-        @RequestMapping("/inCustomer")
+        @RequestMapping("/in")
         public Response signIn(@RequestBody SignIn sinned) {
           Response response = new Response();
           response.setState("accepted");
