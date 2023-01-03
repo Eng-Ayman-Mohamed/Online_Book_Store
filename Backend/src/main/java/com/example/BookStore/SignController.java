@@ -1,6 +1,8 @@
 package com.example.BookStore;
 
 import com.example.BookStore.Models.Customer;
+import com.example.BookStore.Repository.DBConnection;
+import com.example.BookStore.Repository.SignRepo;
 import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/sign")
@@ -8,22 +10,30 @@ import org.springframework.web.bind.annotation.*;
 public class SignController {
 
       Customer customer = new Customer();
-        @RequestMapping("/in")
+      DBConnection dbConnection = new DBConnection();
+
+    SignRepo signRepo = new SignRepo();
+
+    @RequestMapping("/in")
         public Response signIn(@RequestBody SignIn sinned) {
-          Response response = new Response();
-          response.setState("accepted");
-            response.setId(1);
-            response.setUsername("abdu");
+        System.out.println(   dbConnection.connect());
+        signRepo.setConnection(dbConnection);
+        Response response = new Response();
+        boolean res= signRepo.checkCustomer(sinned.getUsername(), sinned.getPassword());
+          response.setState(res? "accepted":"rejected");
+            response.setUsername(sinned.getUsername());
             response.setType("customer");
             return response;
         }
 
         @RequestMapping("/up")
         public Response signUp(@RequestBody Customer User) {
-            customer = User;
-            Response response = new Response();
-            response.setState("accepted");
 
+            System.out.println(   dbConnection.connect());
+            signRepo.setConnection(dbConnection);
+            boolean res= signRepo.addCustomer(User);
+            Response response = new Response();
+            response.setState( res? "accepted":"rejected");
             return response;
         }
     @RequestMapping("/inManager")

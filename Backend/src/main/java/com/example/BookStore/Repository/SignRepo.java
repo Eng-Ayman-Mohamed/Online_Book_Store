@@ -1,5 +1,7 @@
 package com.example.BookStore.Repository;
 
+import com.example.BookStore.Models.Customer;
+
 public class SignRepo {
 private DBConnection connection;
 
@@ -16,8 +18,13 @@ private DBConnection connection;
         }
         return false;
     }
-    public boolean addCustomer(String username, String name, String email, String address, String phone, String password) {
-        String query = "INSERT INTO customer VALUES ('" + username + "', '" + name + "', '" + email + "', '" + address + "', '" + phone + "', '" + password + "', 0, null)";
+    //customer > userName, Phone, FName, LName, email, Password, promoted, Address, PromoteMN
+    public boolean addCustomer(Customer customer) {
+
+        String query = "INSERT INTO customer VALUES ('" + customer.getUserName() + "', '" + customer.getPhone() +
+                "', '" + customer.getFname() + "', '" + customer.getLname() + "', '" + customer.getEmail() + "', '" +
+                customer.getPassword() + "', 0, '" + customer.getAddress() + "', null)";
+        System.out.println(query);
         try {
             connection.getStatement().executeUpdate(query);
             return true;

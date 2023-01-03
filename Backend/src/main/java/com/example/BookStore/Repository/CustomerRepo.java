@@ -22,8 +22,8 @@ public class CustomerRepo {
             Customer customer = new Customer();
             customer.setUserName(resultSet.getString(1));
             customer.setPhone(resultSet.getString(2));
-            customer.setFName(resultSet.getString(3));
-            customer.setLName(resultSet.getString(4));
+            customer.setFname(resultSet.getString(3));
+            customer.setLname(resultSet.getString(4));
             customer.setEmail(resultSet.getString(5));
             customer.setPassword(resultSet.getString(6));
             customer.setPromoted(resultSet.getInt(7));
@@ -35,7 +35,11 @@ public class CustomerRepo {
     }
 
     boolean Sign_up(Customer customer) throws SQLException {
-        String query = "INSERT INTO `Customer`(`username`, `phone`, `FName`, `LName`, `email`, `password`, `promoted`, `address`, `promoteMN`) VALUES ('" + customer.getUserName() + "','" + customer.getPhone() + "','" + customer.getFName() + "','" + customer.getLName() + "','" + customer.getEmail() + "','" + customer.getPassword() + "'," + customer.getPromoted() + ",'" + customer.getAddress() + "','" + customer.getPromoteMN() + "')";
+        String query = "INSERT INTO `Customer`(`username`, `phone`, `FName`, `LName`, `email`," +
+                " `password`, `promoted`, `address`, `promoteMN`) VALUES ('" + customer.getUserName() +
+                "','" + customer.getPhone() + "','" + customer.getFname() + "','" + customer.getLname() + "','" +
+                customer.getEmail() + "','" + customer.getPassword() + "'," + customer.getPromoted()
+                + ",'" + customer.getAddress() + "','" + customer.getPromoteMN() + "')";
         connection.connect();
         Statement statement = connection.getStatement();
         return statement.execute(query);
