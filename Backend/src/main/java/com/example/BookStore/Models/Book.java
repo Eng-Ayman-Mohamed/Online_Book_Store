@@ -1,36 +1,30 @@
 package com.example.BookStore.Models;
 
-
-import javax.xml.crypto.Data;
-import java.util.List;
-
-
 public class Book {
-    String ISBN;
-    String title;
-    String category;
-    List<String> authors;
-    Publisher publisher;
-    Data publication_year;
-    double price;
-    int amount;
+    private String Book_ISBN;
+    private String title;
+    private String Publication_Year;
+    private String Category;
+    private int price;
+    private int amount;
+    private String Publisher;
 
-    public Book(String ISBN, String title, String category, List<String> authors, Publisher publisher, Data publication_year, double price) {
-        this.ISBN = ISBN;
+    public Book(String book_ISBN, String title, String publication_Year, String category, int price, int amount, String publisher) {
+        Book_ISBN = book_ISBN;
         this.title = title;
-        this.category = category;
-        this.authors = authors;
-        this.publisher = publisher;
-        this.publication_year = publication_year;
+        Publication_Year = publication_Year;
+        Category = category;
         this.price = price;
+        this.amount = amount;
+        Publisher = publisher;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String getBook_ISBN() {
+        return Book_ISBN;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setBook_ISBN(String book_ISBN) {
+        Book_ISBN = book_ISBN;
     }
 
     public String getTitle() {
@@ -41,43 +35,27 @@ public class Book {
         this.title = title;
     }
 
+    public String getPublication_Year() {
+        return Publication_Year;
+    }
+
+    public void setPublication_Year(String publication_Year) {
+        Publication_Year = publication_Year;
+    }
+
     public String getCategory() {
-        return category;
+        return Category;
     }
 
     public void setCategory(String category) {
-        this.category = category;
+        Category = category;
     }
 
-    public List<String> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(List<String> authors) {
-        this.authors = authors;
-    }
-
-    public Publisher getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
-    }
-
-    public Data getPublication_year() {
-        return publication_year;
-    }
-
-    public void setPublication_year(Data publication_year) {
-        this.publication_year = publication_year;
-    }
-
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -87,5 +65,13 @@ public class Book {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public String getPublisher() {
+        return Publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        Publisher = publisher;
     }
 }
