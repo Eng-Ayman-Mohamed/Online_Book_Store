@@ -34,8 +34,10 @@ public class CustomerRepo {
         return null;
     }
 
-    public static void main(String[] args) throws SQLException {
-        CustomerRepo customerRepo = new CustomerRepo();
-        System.out.println(customerRepo.Sign_in("ab", "12").getLName());
+    boolean Sign_up(Customer customer) throws SQLException {
+        String query = "INSERT INTO `Customer`(`username`, `phone`, `FName`, `LName`, `email`, `password`, `promoted`, `address`, `promoteMN`) VALUES ('" + customer.getUserName() + "','" + customer.getPhone() + "','" + customer.getFName() + "','" + customer.getLName() + "','" + customer.getEmail() + "','" + customer.getPassword() + "'," + customer.getPromoted() + ",'" + customer.getAddress() + "','" + customer.getPromoteMN() + "')";
+        connection.connect();
+        Statement statement = connection.getStatement();
+        return statement.execute(query);
     }
 }

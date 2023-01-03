@@ -10,7 +10,9 @@ public class Order {
     private String Publisher;
     private String BookId;
     private String confirmed;
+public Order(){
 
+}
     public Order(String id, String manage_Name, String quantity, String totalPrice, String createdAt, String updatedAt, String publisher, String bookId, String confirmed) {
         Id = id;
         Manage_Name = manage_Name;

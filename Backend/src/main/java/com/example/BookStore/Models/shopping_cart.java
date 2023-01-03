@@ -6,7 +6,7 @@ public class shopping_cart {
     private int amountRequired;
     private int total_price;
     private String state;
-
+public shopping_cart(){}
     public shopping_cart(int id, String userName, int amountRequired, int total_price, String state) {
         this.id = id;
         this.userName = userName;
