@@ -1,39 +1,49 @@
 import BookTable from "../components/BookTable";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { environment } from "../Environment";
-
-const Search = ({ search, type, cartID, location }) => {
-	let url = "";
+import { useLocation } from "react-router-dom";
+import Header from "../CustomerPage/components/Header";
+const Search = () => {
+	const location = useLocation();
+	let words = location.search.split("?")[1].split("&");
+	const [keyword, setKeyword] = useState(words[0]);
+	const [type, setType] = useState(words[1]);
 	if (type === "Title") {
-		url = "searchByTitle";
+		setType("searchByTitle");
 	} else if (type === "author") {
-		url = "searchByAuthor";
+		setType("searchByAuthor");
 	} else if (type === "category") {
-		url = "searchByCategory";
+		setType("searchByCategory");
 	} else if (type === "ISBN") {
-		url = "searchByISBN";
+		setType("searchByISBN");
 	} else if (type === "publisher") {
-		url = "searchByPublisher";
+		setType("searchByPublisher");
 	} else if (type === "price") {
-		url = "searchByCategory";
+		setType("searchByCategory");
 	}
 	//get some Books from the stock
-	let res = null;
+	const [response, setResponse] = useState(null);
 	useEffect(() => {
+		console.log(location);
 		async function getBooks() {
-			let result = await fetch(`${environment.env}/${url}/${search}`, {
+			await fetch(`${environment.Host}/customer/${type}/${keyword}`, {
 				method: "get",
 				headers: {
 					"Content-type": "application/json",
 				},
-			});
-			res = await result.json();
+			})
+				.then((res) => res.json())
+				.then((data) => setResponse(data));
 		}
 		getBooks();
 	}, []);
+	//  TODO: Re-search in search
 	return (
 		<>
-			<BookTable books={res} />
+			<Header cartid={location.state.username} />
+			{response != null && (
+				<BookTable books={response} cartId={location.state.cartid} />
+			)}
 		</>
 	);
 };

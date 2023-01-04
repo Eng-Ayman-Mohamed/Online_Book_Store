@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -36,7 +37,21 @@ public class CustomerController {
     @GetMapping("/searchByTitle/{title}")
     public ArrayList<Book> searchByTitle(@PathVariable String title) throws SQLException {
         bookRepo.setConnection(BookStoreApplication.dbConnection);
-       return   bookRepo.search("title", title);
+        ArrayList<Book> result = bookRepo.search("title", title);
+        Book one = new Book("1", "title", "789","1011", 123, 245, "Jump");
+        Book two = new Book("2", "title", "789","1011", 123, 245, "Jump");
+        Book three = new Book("3", "title", "789","1011", 123, 245, "Jump");
+        Book four = new Book("4", "title", "789","1011", 123, 245, "Jump");
+        Book five = new Book("5", "title", "789","1011", 123, 245, "Jump");
+        Book six = new Book("6", "title", "789","1011", 123, 245, "Jump");
+
+        result.add(one);
+        result.add(two);
+        result.add(three);
+        result.add(four);
+        result.add(five);
+        result.add(six);
+        return  result;
     }
     // search by author
     @GetMapping("/searchByAuthor/{author}")

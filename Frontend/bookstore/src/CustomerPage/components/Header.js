@@ -3,16 +3,16 @@ import {
 	BsBoxArrowLeft,
 	BsFillPersonFill,
 	BsFillCartCheckFill,
-	BsFillFilterCircleFill,
 	BsSearch,
 } from "react-icons/bs";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Header({ cartid }) {
-	let [search, setsearch] = React.useState("Title");
+	let [keyword, setKeyword] = React.useState("");
+	let [searchType, setSearchType] = React.useState("Title");
 	function search_options(e) {
-		setsearch(e.target.value);
+		setSearchType(e.target.value);
 	}
 	const NAV = useNavigate();
 
@@ -22,13 +22,18 @@ export default function Header({ cartid }) {
 	}
 	function Cart() {
 		//nav to Cart
-		NAV("/", { state: cartid });
+		NAV("/Cart", { state: cartid });
 	}
 	function Logout() {
 		NAV("/Signin");
 	}
 	function goToSearch() {
-		NAV("/search", { state: cartid });
+		NAV(`/search?${keyword}&${searchType}`, {
+			state: { cartid, keyword, searchType },
+		});
+	}
+	function searchKeyword(e) {
+		setKeyword(e.target.value);
 	}
 	return (
 		<div className='CHeader'>
@@ -41,7 +46,11 @@ export default function Header({ cartid }) {
 			<div onClick={() => goToSearch()} className='Cart_2'>
 				<BsSearch />
 			</div>
-			<input className='search' placeholder={"search by " + search} />
+			<input
+				className='search'
+				placeholder={"search by " + searchType}
+				onChange={(e) => searchKeyword(e)}
+			/>
 			<select
 				onChange={search_options}
 				className='select'

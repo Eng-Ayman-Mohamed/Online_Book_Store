@@ -58,7 +58,7 @@ export default function Customerpage() {
 	}
 	return (
 		<div className='Main'>
-			<Header location={location} cartid={location.state.username} />
+			<Header cartid={location.state.username} />
 			<div className='Explore'>
 				<div className='container2'>{BookHtml}</div>
 			</div>

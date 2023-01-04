@@ -10,17 +10,20 @@ export default function BookCard(props) {
 		if (props.cartId !== undefined) {
 			// if he presed  + then send to the backend the book id
 			async function Addbook() {
-				let result = await fetch(`${environment.env}/addToCart`, {
-					method: "POST",
-					headers: {
-						"Content-type": "application/json",
+				let result = await fetch(
+					`${environment.Host}/customer/addToCart`,
+					{
+						method: "POST",
+						headers: {
+							"Content-type": "application/json",
+						},
+						body: JSON.stringify({
+							customerid: props.location.state.id,
+							bookid: props.id,
+							cartid: props.cartId,
+						}),
 					},
-					body: JSON.stringify({
-						customerid: props.location.state.id,
-						bookid: props.id,
-						cartid: props.cartId,
-					}),
-				});
+				);
 				res = await result.json();
 			}
 			Addbook();
@@ -47,7 +50,7 @@ export default function BookCard(props) {
 			if (count !== 0) {
 				async function Removebook() {
 					let result = await fetch(
-						`${environment.env}/removeFromCart`,
+						`${environment.Host}/customer/removeFromCart`,
 						{
 							method: "POST",
 							headers: {

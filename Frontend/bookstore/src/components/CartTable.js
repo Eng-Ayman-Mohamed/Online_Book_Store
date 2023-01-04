@@ -1,35 +1,41 @@
 import "./CartTable.css";
 import { useState, setError, useEffect } from "react";
 import { environment } from "../Environment";
-const CartTable = ({ cartId, location }) => {
-	const [count, setCount] = useState(0);
+const CartTable = ({ books, cartId, location }) => {
 	const [page, setPage] = useState(1);
 	const [content, setContent] = useState([]);
-	let size = 5;
-
+	let size = 20;
+	books.forEach((book) => {
+		book.count = 0;
+	});
 	function increase(id) {
 		let res = "accepted";
 		if (cartId !== undefined) {
 			// if he presed  + then send to the backend the book id
 			async function Addbook() {
-				let result = await fetch(`${environment.env}/addToCart`, {
-					method: "POST",
-					headers: {
-						"Content-type": "application/json",
+				let result = await fetch(
+					`${environment.Host}/customer/addToCart`,
+					{
+						method: "POST",
+						headers: {
+							"Content-type": "application/json",
+						},
+						body: JSON.stringify({
+							customerid: cartId,
+							bookid: id,
+							cartid: cartId,
+						}),
 					},
-					body: JSON.stringify({
-						customerid: location.state.id,
-						bookid: id,
-						cartid: cartId,
-					}),
-				});
+				);
 				res = await result.json();
 			}
 			Addbook();
 
 			if (res === "accepted") {
-				setCount((old) => {
-					return old + 1;
+				books.forEach((book) => {
+					if (book.book_ISBN === id) {
+						book.count++;
+					}
 				});
 			} else {
 				setError(() => {
@@ -39,17 +45,21 @@ const CartTable = ({ cartId, location }) => {
 				});
 			}
 		}
+		changePage(page);
 	}
 	function decrease(id) {
-		if (cartId != undefined) {
-			setCount((old) => {
-				return old > 0 ? old - 1 : 0;
+		let count = 0;
+		if (cartId !== undefined) {
+			books.forEach((book) => {
+				if (book.book_ISBN === id) {
+					book.count = book.count > 0 ? book.count - 1 : 0;
+					count = book.count;
+				}
 			});
-			//  // if he presed  - then send to the backend the book id
 			if (count !== 0) {
 				async function Removebook() {
 					let result = await fetch(
-						`${environment.env}/removeFromCart`,
+						`${environment.Host}/removeFromCart`,
 						{
 							method: "POST",
 							headers: {
@@ -67,128 +77,20 @@ const CartTable = ({ cartId, location }) => {
 				Removebook();
 			}
 		}
+		changePage(page);
 	}
-	let books = [
-		{
-			ISBN: "1",
-			title: "Title1",
-			year: "2022",
-			category: "fiction",
-			price: 123,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "2",
-			title: "Title1",
-			year: "2022",
-			category: "fiction",
-			price: 123,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "3",
-			title: "Title1",
-			year: "2022",
-			category: "fiction",
-			price: 123,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "4",
-			title: "Title1",
-			year: "2022",
-			category: "fiction",
-			price: 123,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "5",
-			title: "Title1",
-			year: "2022",
-			category: "fiction",
-			price: 123,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "6",
-			title: "Title1",
-			year: "2022",
-			category: "fiction",
-			price: 123,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "7",
-			title: "Title1",
-			year: "2022",
-			category: "fiction",
-			price: 123,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "8",
-			title: "Title1",
-			year: "2022",
-			category: "fiction",
-			price: 123,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "9",
-			title: "Title1",
-			year: "2022",
-			category: "fiction",
-			price: 123,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "10",
-			title: "Title1",
-			year: "2022",
-			category: "fiction",
-			price: 123,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "11",
-			title: "Title1",
-			year: "2022",
-			category: "fiction",
-			price: 123,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "12",
-			title: "Title1",
-			year: "2022",
-			category: "fiction",
-			price: 123,
-			amount: 123,
-			publisher: "Jump",
-		},
-	];
 
 	function changePage(currentPage) {
+		console.log(books);
 		let content = [];
 		let start = (currentPage - 1) * size;
 		let end = currentPage * size;
 		for (let i = start; i < end && i < books.length; i++) {
 			content.push(
-				<a className='tr' key={books[i].ISBN}>
-					<div className='td'>{books[i].ISBN}</div>
+				<a className='tr' key={books[i].book_ISBN}>
+					<div className='td'>{books[i].book_ISBN}</div>
 					<div className='td'>{books[i].title}</div>
-					<div className='td'>{books[i].year}</div>
+					<div className='td'>{books[i].publication_Year}</div>
 					<div className='td'>{books[i].category}</div>
 					<div className='td'>{books[i].price}</div>
 					<div className='td'>{books[i].amount}</div>
@@ -197,13 +99,13 @@ const CartTable = ({ cartId, location }) => {
 						<div className='quantity'>
 							<button
 								id='inc'
-								onClick={() => increase(books[i].ISBN)}>
+								onClick={() => increase(books[i].book_ISBN)}>
 								+
 							</button>
-							<p>{count}</p>
+							<p>{books[i].count}</p>
 							<button
 								id='dec'
-								onClick={() => decrease(books[i].ISBN)}>
+								onClick={() => decrease(books[i].book_ISBN)}>
 								-
 							</button>
 						</div>
