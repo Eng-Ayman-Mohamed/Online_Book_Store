@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/manager")
 public class ManagerController {
 // get manager by id

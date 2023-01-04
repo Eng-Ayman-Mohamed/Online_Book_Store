@@ -103,7 +103,9 @@ public ArrayList<Book> search(String field, String value) throws SQLException {
     public ArrayList<Book> getAllBooks() {
         ArrayList<Book> books = new ArrayList<>();
         //book > Book_ISBN, title, Publication_Year, Category, price, amount, Publisher
-        String query = "SELECT * FROM book";
+        String query = "SELECT * FROM book WHERE amount > 0 LIMIT 20 ";
+
+        //String query = "SELECT * FROM book";
         try {
             var resultSet = connection.getStatement().executeQuery(query);
             while (resultSet.next()) {

@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/customer")
 public class CustomerController {
   CustomerRepo customerRepo = new CustomerRepo();
@@ -53,8 +54,9 @@ public class CustomerController {
     // search by price
     @GetMapping("/searchByIsbn/{isbn}")
     public ArrayList<Book> searchByIsbn(@PathVariable String isbn) throws SQLException {
+        System.out.println(isbn);
         bookRepo.setConnection(BookStoreApplication.dbConnection);
-        return bookRepo.search("isbn", isbn);
+        return bookRepo.search("Book_ISBN", isbn);
             }
     // search by publisher
     @GetMapping("/searchByPublisher/{publisher}")
