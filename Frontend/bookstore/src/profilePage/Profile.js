@@ -18,26 +18,31 @@ function SignUp() {
   const location = useLocation();
   let [info, setInfo] = React.useState({});
   const [view, setview] = React.useState(true);
+  let route = location.state.type;
   React.useEffect(() => {
     async function getdata() {
-      let result = await fetch(`${environment.Host}/get/${location.state.id}`, {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      });
+      let result = await fetch(
+        `${environment.Host}/${route}/get/${location.state.userName}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
       let res = await result.json();
       setInfo(res);
     }
     getdata();
   }, []);
   /*
-    name: "",
+    fname: "",
+    lname: "",
     email: "",
     address: "",
     phone: "",
     password: "",
-    username: "",
+    userName: "",
 */
   let [errors, setErrors] = React.useState({
     mail: false,
@@ -78,10 +83,6 @@ function SignUp() {
     if (errors.mail || errors.password || errors.phone || errors.address) {
       return;
     }
-    setInfo((old) => {
-      //Same as Sign up added id to the last
-      return { ...old, id: location.state.id };
-    });
     let route =
       location.state.type === "manager"
         ? "manager/editManager"
