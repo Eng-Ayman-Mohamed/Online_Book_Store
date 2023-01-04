@@ -1,62 +1,6 @@
 import "./BookTable.css";
 import { useState } from "react";
-const BookTable = () => {
-	let books = [
-		{
-			ISBN: "1",
-			title: "title1",
-			year: "1999",
-			category: "Fiction",
-			price: 12,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "2",
-			title: "title2",
-			year: "1999",
-			category: "Fiction",
-			price: 12,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "3",
-			title: "title3",
-			year: "1999",
-			category: "Fiction",
-			price: 12,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "4",
-			title: "title4",
-			year: "1999",
-			category: "Fiction",
-			price: 12,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "5",
-			title: "title5",
-			year: "1999",
-			category: "Fiction",
-			price: 12,
-			amount: 123,
-			publisher: "Jump",
-		},
-		{
-			ISBN: "6",
-			title: "title6",
-			year: "1999",
-			category: "Fiction",
-			price: 12,
-			amount: 123,
-			publisher: "Jump",
-		},
-	];
+const BookTable = ({ books }) => {
 	const [page, setPage] = useState(1);
 	let content = [];
 	let size = 20;
@@ -132,7 +76,7 @@ const BookTable = () => {
 					</button>
 				)}
 			</div>
-			{notFound && <p>No results</p>}
+			{notFound && <p className='no-results'>No results</p>}
 		</>
 	);
 };

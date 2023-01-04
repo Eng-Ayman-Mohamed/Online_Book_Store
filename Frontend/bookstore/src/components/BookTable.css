@@ -61,3 +61,7 @@ a {
 .changing-pages p {
 	font-size: 1.5em;
 }
+.no-results {
+	padding: 5em;
+	font-size: 3em;
+}
