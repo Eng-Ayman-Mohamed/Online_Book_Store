@@ -13,10 +13,14 @@ public class SignRepo {
     }
 
     public boolean addManager(Manager manager) throws SQLException {
-        String query = "SELECT * FROM manager WHERE username = '" + manager.getUsername() + "' OR email = '" + manager.getEmail() + "'";
+        String query = "SELECT * FROM customer WHERE username = '" + manager.getUserName() +
+                "' OR email = '" + manager.getEmail() + "'";
         if (connection.getStatement().executeQuery(query).next())
             return false;
-        query = "INSERT INTO manager VALUES ('" + manager.getUsername() + "', '" + manager.getName() + "', '" + manager.getEmail() + "', '" + manager.getAddress() + "', '" + manager.getPhone() + "', '" + manager.getPassword() + "')";
+        query = "INSERT INTO customer VALUES ('" + manager.getUserName() + "', '" + manager.getPhone() +
+                "', '" + manager.getFname() + "', '" + manager.getLname() + "', '" + manager.getEmail() + "', '" +
+                manager.getPassword() + "', 0, '" + manager.getAddress() + "', null)";
+        System.out.println(query);
         try {
             connection.getStatement().executeUpdate(query);
             return true;
@@ -24,10 +28,12 @@ public class SignRepo {
             System.out.println("ERROR: " + ex);
         }
         return false;
+
     }
 
     public boolean addCustomer(Customer customer) throws SQLException {
-        String query = "SELECT * FROM customer WHERE username = '" + customer.getUserName() + "' OR email = '" + customer.getEmail() + "'";
+        String query = "SELECT * FROM customer WHERE username = '" + customer.getUserName() +
+                "' OR email = '" + customer.getEmail() + "'";
         if (connection.getStatement().executeQuery(query).next())
             return false;
         query = "INSERT INTO customer VALUES ('" + customer.getUserName() + "', '" + customer.getPhone() +
@@ -66,4 +72,5 @@ public class SignRepo {
         }
         return false;
     }
+
 }

@@ -4,6 +4,11 @@ import com.example.BookStore.Models.Customer;
 import com.example.BookStore.Repository.DBConnection;
 import com.example.BookStore.Repository.SignRepo;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.SQLException;
+
+import static com.example.BookStore.BookStoreApplication.dbConnection;
+
 @RestController
 @RequestMapping("/sign")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -11,13 +16,11 @@ import org.springframework.web.bind.annotation.*;
 public class SignController {
 
       Customer customer = new Customer();
-      DBConnection dbConnection = new DBConnection();
 
     SignRepo signRepo = new SignRepo();
 
     @RequestMapping("/in")
         public Response signIn(@RequestBody SignIn sinned) {
-        System.out.println(   dbConnection.connect());
         signRepo.setConnection(dbConnection);
         Response response = new Response();
         boolean res= signRepo.checkCustomer(sinned.getUsername(), sinned.getPassword());
@@ -28,9 +31,7 @@ public class SignController {
         }
 
         @RequestMapping("/up")
-        public Response signUp(@RequestBody Customer User) {
-
-            System.out.println(   dbConnection.connect());
+        public Response signUp(@RequestBody Customer User) throws SQLException {
             signRepo.setConnection(dbConnection);
             boolean res= signRepo.addCustomer(User);
             Response response = new Response();

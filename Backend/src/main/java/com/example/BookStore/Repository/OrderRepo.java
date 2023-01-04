@@ -2,6 +2,7 @@ package com.example.BookStore.Repository;
 
 import com.example.BookStore.Models.Order;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OrderRepo {
@@ -11,7 +12,17 @@ public class OrderRepo {
         this.connection = connection;
     }
 
-    public boolean deleteOrder(int quantity, int id) {
+    public boolean confirm_order(int id) throws SQLException {
+        String query = "UPDATE Orders SET confirmed = 'true' WHERE id = " + id;
+        try {
+            connection.getStatement().executeUpdate(query);
+            return true;
+        } catch (Exception ex) {
+            System.out.println("ERROR: " + ex);
+        }
+        return false;
+    }
+    public boolean deleteOrder(int id) {
         String query = "DELETE FROM orders WHERE Id = " + id;
         try {
             connection.getStatement().executeUpdate(query);
