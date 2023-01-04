@@ -81,7 +81,7 @@ function SignUp() {
     let message = await result.json();
     console.log(message);
     if (message.state === "accepted") {
-      nav("/signin");
+      nav("/");
     } else {
       setError(() => { return true; });
     }
@@ -160,9 +160,9 @@ function SignUp() {
             <input
               type="text"
               placeholder="User name"
-              name="username"
+              name="userName"
               required
-              value={info.username}
+              value={info.userName}
               onChange={handleChange}
             />
           </div>

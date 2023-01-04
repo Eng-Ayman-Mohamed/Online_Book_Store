@@ -84,7 +84,8 @@ public class BookRepo {
 
     public ArrayList<Book> searchByAuthor(String author) throws SQLException {
         ArrayList<Book> books = new ArrayList<>();
-        String query = "SELECT * FROM Book WHERE Book_ISBN IN (SELECT Book_ISBN FROM Author WHERE Author_Name = '"
+        String query = "SELECT * FROM Book WHERE Book_ISBN IN" +
+                " (SELECT Book_ISBN FROM Author WHERE Author_Name = '"
                 + author + "')";
         var resultSet = connection.getStatement().executeQuery(query);
         while (resultSet.next()) {
@@ -105,7 +106,9 @@ public class BookRepo {
     public ArrayList<Book> getAllBooks() {
         ArrayList<Book> books = new ArrayList<>();
         //book > Book_ISBN, title, Publication_Year, Category, price, amount, Publisher
-        String query = "SELECT * FROM book";
+        String query = "SELECT * FROM book WHERE amount > 0 LIMIT 20 ";
+
+        //String query = "SELECT * FROM book";
         try {
             var resultSet = connection.getStatement().executeQuery(query);
             while (resultSet.next()) {

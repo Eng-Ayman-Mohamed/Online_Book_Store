@@ -4,6 +4,7 @@ import BookCard from './components/BookCard';
 import { BsFillCartCheckFill } from 'react-icons/bs';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {BsBoxArrowLeft , BsFillPersonFill, BsFillFilterCircleFill } from 'react-icons/bs';
+import {environment} from '../Environment';
 export default function Customerpage() {
     let [someBooks, setsomeBooks] = React.useState([]);
     let [Books, setBooks] = React.useState([]);
@@ -17,7 +18,7 @@ export default function Customerpage() {
     //get some Books from the stock
     React.useEffect(() => {
         async function getBooks() {
-            let result = await fetch(`${environment.env}/getBooks`, {
+            let result = await fetch(`${environment.Host}/customer/getBooks`, {
                 method: "get",
                 headers: {
                     'Content-type': 'application/json'
@@ -30,7 +31,7 @@ export default function Customerpage() {
     }, []);
     
         for(let i = 0 ; i < 20; i++){
-            let ordobj={name:someBooks[i].name,price:someBooks[i].price,id:someBooks[i].id,image_location:"../Images/pic4.png"};
+            let ordobj={name:someBooks[i].title,price:someBooks[i].price,id:someBooks[i].book_ISBN,image_location:"../Images/pic4.png"};
             Books.push(ordobj);
         }
 
@@ -39,7 +40,7 @@ export default function Customerpage() {
          }
          function Profile(){
              //nav to profile
-             NAV('/', {state:location.state.id});
+             NAV('/Customerpage/Profile', {state:location.state.id});
          }
          let [cartid, setcartid]=React.useState();
          let BookHtml ;
