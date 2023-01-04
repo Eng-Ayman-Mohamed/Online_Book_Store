@@ -6,9 +6,8 @@ export default function BookCard(props) {
     const [Error, setError] = React.useState(null);
     function increase() {
          let res = "accepted" ;
-         if(props.cartId !== undefined){
         // if he presed  + then send to the backend the book id
-        async function Addbook() {
+        /*async function Addbook() {
             let result = await fetch(`${environment.env}/addToCart`, {
                 method: "POST",
                 headers: {
@@ -17,14 +16,13 @@ export default function BookCard(props) {
                 body: JSON.stringify(
                 {
                   customerid:props.location.state.id,
-                  bookid: props.id,
-                  cartid : props.cartId
+                  bookid: props.id
                 }
               )
             });
              res = await result.json();
         }
-        Addbook();
+        Addbook();*/
 
         if(res==="accepted"){
             setCount(old => {
@@ -38,16 +36,14 @@ export default function BookCard(props) {
                 </div>);
             });
         }
-    }
 
     };
     function decrease() {
-        if(props.cartId != undefined){
         setCount(old => {
             return old > 0 ? old - 1 : 0;
         })
         //  // if he presed  - then send to the backend the book id 
-        if(count !== 0){
+        /*if(count !== 0){
         async function Removebook() {
             let result = await fetch(`${environment.env}/removeFromCart`, {
                 method: "POST",
@@ -57,14 +53,13 @@ export default function BookCard(props) {
                 body: JSON.stringify(
                 {
                   customerid:props.location.state.id,
-                  bookid: props.id,
-                  cartid : props.cartId
+                  bookid: props.id
                 }
               )
             });
             let res = await result.json();
         }
-    Removebook();}}
+    Removebook();}*/
     };
 
     return (
