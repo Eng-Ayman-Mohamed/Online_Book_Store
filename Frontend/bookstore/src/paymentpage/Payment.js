@@ -79,7 +79,8 @@ function SignUp() {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        id: location.state.id,
+        userName: location.state.userName, //cardID, userName
+        cartID: location.state.cartID,
       }),
     });
     nav("/homePage");

@@ -31,7 +31,7 @@ function Signin() {
       if(UserState.type === "customer"){
         nav("/Customerpage", { state: UserState });
       }else{
-        nav("/manager", { state: UserState });
+        nav("/Managerpage", { state: UserState });
       }
     } else {
       setError(() => { return true; })
