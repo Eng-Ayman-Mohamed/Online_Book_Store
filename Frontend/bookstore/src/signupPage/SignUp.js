@@ -80,7 +80,7 @@ function SignUp() {
     let message = await result.json();
     console.log(message);
     if (message.state === "accepted") {
-      nav("/signin");
+      nav("/");
     } else {
       setError(() => { return true; });
     }
