@@ -29,15 +29,20 @@ export default function Customerpage() {
     name :"Book1",price:"20", description:"very good", available_amount:"15"});
     const NAV = useNavigate();
     const location = useLocation();
+    let [cartid, setcartid] = React.useState();
 
     //get some Books from the stock
-   /* React.useEffect(() => {
+    /*React.useEffect(() => {
         async function getBooks() {
             let result = await fetch(`${environment.env}/getBooks`, {
                 method: "get",
                 headers: {
                     'Content-type': 'application/json'
-                }
+                },
+                body: JSON.stringify(
+                    {
+                      customerid:location.state.id,
+                    })
             });
             let res = await result.json();
             setsomeBooks(res);
@@ -60,19 +65,15 @@ export default function Customerpage() {
             />
         );
     })
-    let header = ()=>{
-        <Header
-        location={location}
-        />
-    }
-
     function Cart(){
         //nav to Cart
       //  NAV('/', {state:location.state.id});
     }
     return (
         <div className="Main">
-            {header}
+             <Header
+        location={location}
+        />
             <div className="Explore">
                 <div className="container2">
                     {BookHtml}

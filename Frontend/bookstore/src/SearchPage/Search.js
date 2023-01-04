@@ -14,7 +14,7 @@ const Search = ({ search, type }) => {
 		url = "searchByISBN";
 	} else if (type === "publisher") {
 		url = "searchByPublisher";
-	} else if (type == "price") {
+	} else if (type === "price") {
 		url = "searchByCategory";
 	}
 	//get some Books from the stock

@@ -3,9 +3,8 @@ import {BsBoxArrowLeft , BsFillPersonFill, BsFillCartCheckFill, BsFillFilterCirc
 import './Header.css';
 import { useNavigate } from 'react-router-dom';
 
-export default function Header() {
+export default function Header(props) {
     let [search, setsearch]= React.useState("Title");
-    let cartid = 0 ;
     function search_options(e){
         setsearch(e.target.value);
         console.log(search);
@@ -23,7 +22,8 @@ export default function Header() {
       // NAV('/', {state:location.state.id});
     }
     function start_shopping(){
-        async function start_shopping() {
+        
+        /*async function start_shopping() {
             let result = await fetch(`${environment.env}/getcartid`, {
                 method: "POST",
                 headers: {
@@ -31,14 +31,14 @@ export default function Header() {
                 },
                 body: JSON.stringify(
                 {
-                  customerid:location.state.id
+                  customerid:props.location.state.id
                 }
               )
             });
             let res = await result.json();
             cartid = res;
         }
-        start_shopping();
+        start_shopping();*/
     }
 
 return(
