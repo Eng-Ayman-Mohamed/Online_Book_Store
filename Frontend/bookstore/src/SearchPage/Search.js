@@ -1,5 +1,6 @@
 import BookTable from "../components/BookTable";
 import { useEffect } from "react";
+import { environment } from "../Environment";
 
 const Search = ({ search, type, cartID, location }) => {
 	let url = "";
@@ -18,21 +19,21 @@ const Search = ({ search, type, cartID, location }) => {
 	}
 	//get some Books from the stock
 	let res = null;
-	// useEffect(() => {
-	// 	async function getBooks() {
-	// 		let result = await fetch(`${environment.env}/${url}/${.search}`, {
-	// 			method: "get",
-	// 			headers: {
-	// 				"Content-type": "application/json",
-	// 			},
-	// 		});
-	// 		res = await result.json();
-	// 	}
-	// 	getBooks();
-	// }, []);
+	useEffect(() => {
+		async function getBooks() {
+			let result = await fetch(`${environment.env}/${url}/${search}`, {
+				method: "get",
+				headers: {
+					"Content-type": "application/json",
+				},
+			});
+			res = await result.json();
+		}
+		getBooks();
+	}, []);
 	return (
 		<>
-			<BookTable books={res} cartID={cartID} location={location} />
+			<BookTable books={res} />
 		</>
 	);
 };

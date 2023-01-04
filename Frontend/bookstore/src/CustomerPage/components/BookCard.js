@@ -1,5 +1,7 @@
 import React from "react";
-import './BookCard.css'
+import './BookCard.css';
+import { environment } from "../../Environment";
+
 export default function BookCard(props) {
 
     const [count, setCount] = React.useState(0);
@@ -39,6 +41,7 @@ export default function BookCard(props) {
 
     };
     function decrease() {
+        if(props.cartId !== undefined){
         setCount(old => {
             return old > 0 ? old - 1 : 0;
         })
