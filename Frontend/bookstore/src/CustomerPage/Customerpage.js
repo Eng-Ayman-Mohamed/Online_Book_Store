@@ -9,12 +9,29 @@ export default function Customerpage() {
     let [someBooks, setsomeBooks] = React.useState([]);
     let [Books, setBooks] = React.useState([]);
 
-             
+    Books.push( { id : 1 ,image_location:"../Images/pic4.png", 
+    name :"Book1",price:"20", description:"very good", available_amount:"15"});
+    Books.push( {id : 1 ,image_location:"../Images/pic4.png", 
+    name :"Book1",price:"20", description:"very good", available_amount:"15"});
+    Books.push( {id : 1 ,image_location:"../Images/pic4.png", 
+    name :"Book1",price:"20", description:"very good", available_amount:"15"});
+    Books.push( { id : 1 ,image_location:"../Images/pic4.png", 
+    name :"Book1",price:"20", description:"very good", available_amount:"15"});
+    Books.push( {id : 1 ,image_location:"../Images/pic4.png", 
+    name :"Book1",price:"20", description:"very good", available_amount:"15"});
+    Books.push( {id : 1 ,image_location:"../Images/pic4.png", 
+    name :"Book1",price:"20", description:"very good", available_amount:"15"});
+    Books.push( { id : 1 ,image_location:"../Images/pic4.png", 
+    name :"Book1",price:"20", description:"very good", available_amount:"15"});
+    Books.push( {id : 1 ,image_location:"../Images/pic4.png", 
+    name :"Book1",price:"20", description:"very good", available_amount:"15"});
+    Books.push( {id : 1 ,image_location:"../Images/pic4.png", 
+    name :"Book1",price:"20", description:"very good", available_amount:"15"});
     const NAV = useNavigate();
     const location = useLocation();
 
     //get some Books from the stock
-    React.useEffect(() => {
+   /* React.useEffect(() => {
         async function getBooks() {
             let result = await fetch(`${environment.env}/getBooks`, {
                 method: "get",
@@ -28,10 +45,10 @@ export default function Customerpage() {
         getBooks();
     }, []);
     
-        for(let i = 0 ; i < someBooks.length; i++){
+        for(let i = 0 ; i < 20; i++){
             let ordobj={name:someBooks[i].name,price:someBooks[i].price,id:someBooks[i].id,image_location:"../Images/pic4.png"};
             Books.push(ordobj);
-        }
+        }*/
     let BookHtml = Books.map((item) => {
         return (
             <BookCard
@@ -43,15 +60,19 @@ export default function Customerpage() {
             />
         );
     })
+    let header = ()=>{
+        <Header
+        location={location}
+        />
+    }
 
     function Cart(){
         //nav to Cart
-        NAV('/', {state:location.state.id});
+      //  NAV('/', {state:location.state.id});
     }
     return (
         <div className="Main">
-            <Header
-            />
+            {header}
             <div className="Explore">
                 <div className="container2">
                     {BookHtml}

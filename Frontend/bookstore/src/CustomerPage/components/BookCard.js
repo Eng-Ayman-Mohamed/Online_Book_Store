@@ -5,9 +5,9 @@ export default function BookCard(props) {
     const [count, setCount] = React.useState(0);
     const [Error, setError] = React.useState(null);
     function increase() {
-         let res ;
+         let res = "accepted" ;
         // if he presed  + then send to the backend the book id
-        async function Addbook() {
+        /*async function Addbook() {
             let result = await fetch(`${environment.env}/addToCart`, {
                 method: "POST",
                 headers: {
@@ -22,7 +22,7 @@ export default function BookCard(props) {
             });
              res = await result.json();
         }
-        Addbook();
+        Addbook();*/
 
         if(res==="accepted"){
             setCount(old => {
@@ -43,6 +43,7 @@ export default function BookCard(props) {
             return old > 0 ? old - 1 : 0;
         })
         //  // if he presed  - then send to the backend the book id 
+        /*if(count !== 0){
         async function Removebook() {
             let result = await fetch(`${environment.env}/removeFromCart`, {
                 method: "POST",
@@ -58,7 +59,7 @@ export default function BookCard(props) {
             });
             let res = await result.json();
         }
-    Removebook();
+    Removebook();}*/
     };
 
     return (
