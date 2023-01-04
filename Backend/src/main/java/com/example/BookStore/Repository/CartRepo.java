@@ -16,7 +16,8 @@ public class CartRepo {
         String query = "INSERT INTO shopping_cart VALUES (null, '" + username + "')";
         try {
             connection.getStatement().executeUpdate(query);
-            query = "SELECT * FROM shopping_cart WHERE username = '" + username + "',0,0,false,"+new java.sql.Date(new java.util.Date().getTime())+")";
+            query = "SELECT * FROM shopping_cart WHERE username = '" + username + "',0,0,false,"+
+                    new java.sql.Date(new java.util.Date().getTime())+")";
             return connection.getStatement().executeQuery(query).getInt("id");
         } catch (Exception ex) {
             System.out.println("ERROR: " + ex);
@@ -25,9 +26,9 @@ public class CartRepo {
     }
     public  boolean addBookToItemsAndCart(String bookId, int cartId, int amount, int price) {
 
-        String query = "INSERT INTO items VALUES (" + bookId + "," + cartId + "," + amount + ","+price+")";
+        String query ;//= "INSERT INTO items VALUES (" + bookId + "," + cartId + "," + amount + ","+price+")";
         try {
-            connection.getStatement().executeUpdate(query);
+         //   connection.getStatement().executeUpdate(query);
             query = "UPDATE shopping_cart SET amountRequired = amountRequired + " + amount + " WHERE id = " + cartId;
             connection.getStatement().executeUpdate(query);
             query = "UPDATE shopping_cart SET total_price = total_price + (SELECT price FROM book WHERE Book_ISBN = " + bookId + ") * " + amount + " WHERE id = " + cartId;

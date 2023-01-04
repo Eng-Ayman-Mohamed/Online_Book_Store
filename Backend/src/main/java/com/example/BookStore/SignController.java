@@ -32,6 +32,7 @@ public class SignController {
 
         @RequestMapping("/up")
         public Response signUp(@RequestBody Customer User) throws SQLException {
+
             signRepo.setConnection(dbConnection);
             boolean res= signRepo.addCustomer(User);
             Response response = new Response();
@@ -40,6 +41,8 @@ public class SignController {
         }
     @RequestMapping("/inManager")
     public Response signInM(@RequestBody SignIn sinned) {
+        signRepo.setConnection(dbConnection);
+
         Response response = new Response();
         response.setState("accepted");
         response.setId(1);
@@ -49,6 +52,7 @@ public class SignController {
 
     @RequestMapping("/upManager")
     public Response signUpM(@RequestBody Customer User) {
+        signRepo.setConnection(dbConnection);
         Response response = new Response();
         response.setState("accepted");
 
@@ -59,7 +63,6 @@ public class SignController {
 class SignIn{
     String username;
     String password;
-    String type;
     public SignIn(String username, String password) {
         this.username = username;
         this.password = password;
