@@ -116,7 +116,7 @@ public class ManagerRepo {
                 customer.setEmail(resultSet.getString("email"));
                 customer.setPhone(resultSet.getString("phone"));
                 customer.setAddress(resultSet.getString("address"));
-                customer.setPromoted(Integer.parseInt(resultSet.getString("TotalPrice")));//promoted is used to store the total price
+                customer.setPromoted(resultSet.getInt("promoted"));//promoted is used to store the total price
                 customers.add(customer);
             }
         } catch (Exception ex) {
