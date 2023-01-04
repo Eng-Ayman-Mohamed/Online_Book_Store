@@ -1,6 +1,7 @@
 package com.example.BookStore;
 
 import com.example.BookStore.Models.*;
+import com.example.BookStore.Repository.ManagerRepo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -8,7 +9,12 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/manager")
 public class ManagerController {
+// get manager by id
+    ManagerRepo managerRepo = new ManagerRepo();
+    @GetMapping("/get/{id}")
+    public Manager getManager(@PathVariable int id) {
 
+    }
     //* 1. Add new books
     @PostMapping("/addBook")
     public boolean addBook(@RequestBody Book book) {

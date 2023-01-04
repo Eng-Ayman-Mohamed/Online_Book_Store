@@ -16,7 +16,6 @@ public class CustomerController {
     }
 
 
-
     //1. Edit his personal information including his password
     @PutMapping("/editCustomer")
     public boolean editCustomer(@RequestBody Customer customer) {

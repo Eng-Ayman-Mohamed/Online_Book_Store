@@ -2,6 +2,7 @@ package com.example.BookStore.Repository;
 
 import com.example.BookStore.Models.Book;
 import com.example.BookStore.Models.Customer;
+import com.example.BookStore.Models.Manager;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,29 @@ public class ManagerRepo {
     //Promote registered customer to manager
     //customer > userName, Phone, FName, LName, email, Password, promoted, Address, PromoteMN
 // manager>userName, Address, FName, LName, Phone, email, Password
+
+  public Manager getManager(String username){
+String query = "SELECT * FROM manager WHERE username = '" + username + "'";
+      try {
+          if (connection.getStatement().executeQuery(query).next()) {
+              Manager manager = new Manager();
+              manager.setUserName(username);
+              manager.setAddress(connection.getStatement().executeQuery(query).getString("address"));
+              manager.setFname(connection.getStatement().executeQuery(query).getString("fname"));
+              manager.setLname(connection.getStatement().executeQuery(query).getString("lname"));
+              manager.setPhone(connection.getStatement().executeQuery(query).getString("phone"));
+              manager.setEmail(connection.getStatement().executeQuery(query).getString("email"));
+              manager.setPassword(connection.getStatement().executeQuery(query).getString("password"));
+              return manager;
+          }
+      } catch (Exception ex) {
+          System.out.println("ERROR: " + ex);
+      }
+      return null;
+  }
+
+
+
     public boolean promoteCustomer(String username,String managerName) {
         String query = "UPDATE customer SET promoted = 1 , PromoteMN ="+managerName +"WHERE username = '" + username + "'";
         try {
