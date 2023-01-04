@@ -17,12 +17,13 @@ function SignUp() {
   const [Error, setError] = React.useState(false);
   //userName, Phone, FName, LName, email, Password, promoted, Address, PromoteMN
   let [info, setInfo] = React.useState({
-    name: "",
+    fname: "",
+    lname: "",
     email: "",
     address: "",
     phone: "",
     password: "",
-    username:""
+    userName:""
   });
   const [User, setuser] = React.useState("customer");
   let [errors, setErrors] = React.useState({
@@ -94,10 +95,20 @@ function SignUp() {
           <div className="contain">
             <input
               type="text"
-              placeholder="Name"
-              name="name"
+              placeholder="first Name"
+              name="fname"
               required
-              value={info.name}
+              value={info.fname}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="contain">
+            <input
+              type="text"
+              placeholder="Last Name"
+              name="lname"
+              required
+              value={info.lname}
               onChange={handleChange}
             />
           </div>

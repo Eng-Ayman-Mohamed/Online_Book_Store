@@ -2,11 +2,10 @@ import React from 'react';
 import './Signin.css';
 import { Link, useNavigate } from "react-router-dom";
 import {environment} from '../Environment';
-export const ValidateEmail = (mail = "") => (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(mail));
 
 function Signin() {
   const [Error, setError] = React.useState(false);
-  let [info, setInfo] = React.useState({ email: "", password: ""});
+  let [info, setInfo] = React.useState({ username: "", password: ""});
   const [User, setuser] = React.useState("customer");
   let nav = useNavigate();
   let handleChange = (e) => {
@@ -16,10 +15,6 @@ function Signin() {
   }
   let handleSubmit = async (e) => {
     e.preventDefault();
-    if (!ValidateEmail(info.email)) {
-      setError(() => { return true; })
-      return;
-    }
     let route = User==="customer"? "in": "inManager";
     console.log(route);
     let result = await fetch(`${environment.Host}/sign/${route}`, {
@@ -31,7 +26,7 @@ function Signin() {
     });
     let message = await result.json();
     if (message.state === "accepted") {
-      let UserState = { type: message.type, id: message.id };
+      let UserState = { type: message.type, username: message.username };
       //then route based on type of user
       if(UserState.type === "customer"){
         nav("/customer", { state: UserState });
@@ -47,7 +42,7 @@ function Signin() {
       <div className='form-container'>
         <h1 className='sign-in-header'>Sign in</h1>
         <form onSubmit={handleSubmit}>
-          <input type="mail" placeholder="E-Mail" name="email" required value={info.email} onChange={handleChange} />
+          <input type="mail" placeholder="E-Mail or username" name="username" required value={info.username} onChange={handleChange} />
           <input type="password" placeholder="Password" name="password" required value={info.password} onChange={handleChange} />
           <div className='check-boxs'>
             <div >
