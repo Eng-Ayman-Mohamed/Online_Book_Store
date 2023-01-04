@@ -1,31 +1,31 @@
 package com.example.BookStore.Models;
 
 public class Book {
-    private String Book_ISBN;
+    private String book_ISBN;
     private String title;
-    private String Publication_Year;
-    private String Category;
+    private String publication_Year;
+    private String category;
     private int price;
     private int amount;
     private String Publisher;
 
     public Book(){}
     public Book(String book_ISBN, String title, String publication_Year, String category, int price, int amount, String publisher) {
-        Book_ISBN = book_ISBN;
+        this.book_ISBN = book_ISBN;
         this.title = title;
-        Publication_Year = publication_Year;
-        Category = category;
+        this.publication_Year = publication_Year;
+        this.category = category;
         this.price = price;
         this.amount = amount;
         Publisher = publisher;
     }
 
     public String getBook_ISBN() {
-        return Book_ISBN;
+        return book_ISBN;
     }
 
     public void setBook_ISBN(String book_ISBN) {
-        Book_ISBN = book_ISBN;
+        this.book_ISBN = book_ISBN;
     }
 
     public String getTitle() {
@@ -37,19 +37,19 @@ public class Book {
     }
 
     public String getPublication_Year() {
-        return Publication_Year;
+        return publication_Year;
     }
 
     public void setPublication_Year(String publication_Year) {
-        Publication_Year = publication_Year;
+        this.publication_Year = publication_Year;
     }
 
     public String getCategory() {
-        return Category;
+        return category;
     }
 
     public void setCategory(String category) {
-        Category = category;
+        this.category = category;
     }
 
     public int getPrice() {

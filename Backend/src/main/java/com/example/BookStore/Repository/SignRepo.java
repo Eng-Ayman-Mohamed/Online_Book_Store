@@ -1,19 +1,22 @@
 package com.example.BookStore.Repository;
 
-import java.sql.SQLException;
 import com.example.BookStore.Models.Customer;
+import com.example.BookStore.Models.Manager;
+
+import java.sql.SQLException;
 
 public class SignRepo {
-private DBConnection connection;
+    private DBConnection connection;
 
     public void setConnection(DBConnection connection) {
         this.connection = connection;
     }
-    public boolean addManager(String username, String name, String email, String address, String phone, String password) throws SQLException {
-        String query = "SELECT * FROM manager WHERE username = '" + username + "' OR email = '" + email + "'";
+
+    public boolean addManager(Manager manager) throws SQLException {
+        String query = "SELECT * FROM manager WHERE username = '" + manager.getUsername() + "' OR email = '" + manager.getEmail() + "'";
         if (connection.getStatement().executeQuery(query).next())
             return false;
-        query = "INSERT INTO manager VALUES ('" + username + "', '" + name + "', '" + email + "', '" + address + "', '" + phone + "', '" + password + "')";
+        query = "INSERT INTO manager VALUES ('" + manager.getUsername() + "', '" + manager.getName() + "', '" + manager.getEmail() + "', '" + manager.getAddress() + "', '" + manager.getPhone() + "', '" + manager.getPassword() + "')";
         try {
             connection.getStatement().executeUpdate(query);
             return true;
@@ -22,12 +25,12 @@ private DBConnection connection;
         }
         return false;
     }
-    //customer > userName, Phone, FName, LName, email, Password, promoted, Address, PromoteMN
-    public boolean addCustomer(Customer customer) {
-        String query = "SELECT * FROM customer WHERE username = '" + username + "' OR email = '" + email + "'";
+
+    public boolean addCustomer(Customer customer) throws SQLException {
+        String query = "SELECT * FROM customer WHERE username = '" + customer.getUserName() + "' OR email = '" + customer.getEmail() + "'";
         if (connection.getStatement().executeQuery(query).next())
             return false;
-        String query = "INSERT INTO customer VALUES ('" + customer.getUserName() + "', '" + customer.getPhone() +
+        query = "INSERT INTO customer VALUES ('" + customer.getUserName() + "', '" + customer.getPhone() +
                 "', '" + customer.getFname() + "', '" + customer.getLname() + "', '" + customer.getEmail() + "', '" +
                 customer.getPassword() + "', 0, '" + customer.getAddress() + "', null)";
         System.out.println(query);
@@ -51,7 +54,8 @@ private DBConnection connection;
         }
         return false;
     }
-      public boolean checkCustomer(String username, String password) {
+
+    public boolean checkCustomer(String username, String password) {
         String query = "SELECT * FROM customer WHERE (username = '" + username + "' OR email = '" + username + "') AND password = '" + password + "'";
         try {
             if (connection.getStatement().executeQuery(query).next()) {

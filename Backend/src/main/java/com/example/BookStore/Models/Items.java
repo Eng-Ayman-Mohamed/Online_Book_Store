@@ -1,24 +1,24 @@
 package com.example.BookStore.Models;
 
 public class Items {
-    private String BookId;
+    private String bookId;
     private int cart_id;
     private int amountRequired;
     private int Price;
 
     public Items(String bookId, int cart_id, int amountRequired, int price) {
-        BookId = bookId;
+        this.bookId = bookId;
         this.cart_id = cart_id;
         this.amountRequired = amountRequired;
         Price = price;
     }
 
     public String getBookId() {
-        return BookId;
+        return bookId;
     }
 
     public void setBookId(String bookId) {
-        BookId = bookId;
+        this.bookId = bookId;
     }
 
     public int getCart_id() {

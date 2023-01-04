@@ -11,11 +11,12 @@ public class ManagerRepo {
     public void setConnection(DBConnection connection) {
         this.connection = connection;
     }
+
     //Promote registered customer to manager
     //customer > userName, Phone, FName, LName, email, Password, promoted, Address, PromoteMN
-// manager>userName, Address, FName, LName, Phone, email, Password
-    public boolean promoteCustomer(String username,String managerName) {
-        String query = "UPDATE customer SET promoted = 1 , PromoteMN ="+managerName +"WHERE username = '" + username + "'";
+    //manager >userName, Address, FName, LName, Phone, email, Password
+    public boolean promoteCustomer(String username, String managerName) {
+        String query = "UPDATE customer SET promoted = 1 , PromoteMN = '" + managerName + "' WHERE username = '" + username + "'";
         try {
             connection.getStatement().executeUpdate(query);
             return true;
@@ -24,13 +25,14 @@ public class ManagerRepo {
         }
         return false;
     }
+
     // get all customers
-    public ArrayList<Customer> getAllCustomers(){
+    public ArrayList<Customer> getAllCustomers() {
         ArrayList<Customer> customers = new ArrayList<>();
         String query = "SELECT * FROM customer";
         try {
             var resultSet = connection.getStatement().executeQuery(query);
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 Customer customer = new Customer();
                 customer.setUserName(resultSet.getString(1));
                 customer.setFname(resultSet.getString(2));
@@ -52,13 +54,12 @@ public class ManagerRepo {
     public ArrayList<Book> getAllBooks() {
         ArrayList<Book> books = new ArrayList<>();
         //book > Book_ISBN, title, Publication_Year, Category, price, amount, Publisher
-
         String query = "SELECT * FROM book";
         try {
             var resultSet = connection.getStatement().executeQuery(query);
             while (resultSet.next()) {
                 Book book = new Book();
-               book.setBook_ISBN(resultSet.getString(1));
+                book.setBook_ISBN(resultSet.getString(1));
                 book.setTitle(resultSet.getString(2));
                 book.setPublication_Year(resultSet.getString(3));
                 book.setCategory(resultSet.getString(4));
@@ -66,15 +67,11 @@ public class ManagerRepo {
                 book.setAmount(resultSet.getInt(6));
                 book.setPublisher(resultSet.getString(7));
                 books.add(book);
-
             }
-
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("ERROR: " + ex);
         }
         return books;
-
     }
 
     //* c. The top 10 selling books for the last three month
@@ -126,9 +123,8 @@ public class ManagerRepo {
             System.out.println("ERROR: " + ex);
         }
         return customers;
-
-
     }
+
     // The total sales for books in the previous month
     public ArrayList<Book> get_total_sales() {
         //shopping_cart> id, userName, amountRequired, total_price, state, Date
@@ -153,7 +149,6 @@ public class ManagerRepo {
             }
         } catch (Exception ex) {
             System.out.println("ERROR: " + ex);
-
         }
         return books;
     }

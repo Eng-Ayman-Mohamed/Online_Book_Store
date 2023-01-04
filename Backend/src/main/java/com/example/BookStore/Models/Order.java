@@ -1,92 +1,74 @@
 package com.example.BookStore.Models;
 
+import java.sql.Date;
+
 public class Order {
-    private String Id;
-    private String  Manage_Name;
-    private String Quantity;
-    private String TotalPrice;
-    private String createdAt;
-    private String  updatedAt;
-    private String Publisher;
-    private String BookId;
+    private String id;
+    private String quantity;
+    private Date createdAt;
+    private Date updatedAt;
+    private String publisher;
+    private String bookId;
     private String confirmed;
 public Order(){
 
 }
-    public Order(String id, String manage_Name, String quantity, String totalPrice, String createdAt, String updatedAt, String publisher, String bookId, String confirmed) {
-        Id = id;
-        Manage_Name = manage_Name;
-        Quantity = quantity;
-        TotalPrice = totalPrice;
+    public Order(String id, String quantity, Date createdAt, Date updatedAt, String publisher, String bookId, String confirmed) {
+        this.id = id;
+        this.quantity = quantity;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        Publisher = publisher;
-        BookId = bookId;
+        this.publisher = publisher;
+        this.bookId = bookId;
         this.confirmed = confirmed;
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
-    }
-
-    public String getManage_Name() {
-        return Manage_Name;
-    }
-
-    public void setManage_Name(String manage_Name) {
-        Manage_Name = manage_Name;
+        this.id = id;
     }
 
     public String getQuantity() {
-        return Quantity;
+        return quantity;
     }
 
     public void setQuantity(String quantity) {
-        Quantity = quantity;
+        this.quantity = quantity;
     }
 
-    public String getTotalPrice() {
-        return TotalPrice;
-    }
-
-    public void setTotalPrice(String totalPrice) {
-        TotalPrice = totalPrice;
-    }
-
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public String getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(String updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
     public String getPublisher() {
-        return Publisher;
+        return publisher;
     }
 
     public void setPublisher(String publisher) {
-        Publisher = publisher;
+        this.publisher = publisher;
     }
 
     public String getBookId() {
-        return BookId;
+        return bookId;
     }
 
     public void setBookId(String bookId) {
-        BookId = bookId;
+        this.bookId = bookId;
     }
 
     public String getConfirmed() {
