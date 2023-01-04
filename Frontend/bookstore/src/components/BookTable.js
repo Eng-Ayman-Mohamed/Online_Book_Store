@@ -59,11 +59,11 @@ const BookTable = () => {
 	];
 	const [page, setPage] = useState(1);
 	let content = [];
-	let size = 2;
+	let size = 20;
 	let start = (page - 1) * size;
 	let end = page * size;
 
-	for (let i = start; i < end; i++) {
+	for (let i = start; i < end && i < books.length; i++) {
 		content.push(
 			<a className='tr' href='/' key={books[i].ISBN}>
 				<div className='td'>{books[i].ISBN}</div>
