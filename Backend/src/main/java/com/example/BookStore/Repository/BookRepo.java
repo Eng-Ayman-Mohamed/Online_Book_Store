@@ -4,7 +4,6 @@ import com.example.BookStore.Models.Book;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class BookRepo {
     private DBConnection connection;
@@ -14,7 +13,7 @@ public class BookRepo {
     }
 
     //Book_ISBN, title, Publication_Year, Category, price, amount, Publisher
-    public  boolean add_new_book(Book book) throws SQLException {
+    public boolean add_new_book(Book book) throws SQLException {
         String query = "SELECT * FROM Book WHERE Book_ISBN = '" + book.getBook_ISBN() + "'";
         if (connection.getStatement().executeQuery(query).next()) return false;
         query = "INSERT INTO Book VALUES ('" + book.getBook_ISBN() + "', '" + book.getTitle() + "', '" + book.getPublication_Year() + "', '" + book.getCategory() + "', " + book.getPrice() + ", " + book.getAmount() + ", '" + book.getPublisher() + "')";
@@ -48,6 +47,7 @@ public class BookRepo {
         }
         return false;
     }
+
     public boolean update_book(Book book) throws SQLException {
         String query = "UPDATE Book SET title = '" + book.getTitle() +
                 "', Publication_Year = '" + book.getPublication_Year() +
@@ -62,9 +62,10 @@ public class BookRepo {
         }
         return false;
     }
-//Book_ISBN, title, Publication_Year, Category, price, amount, Publisher
-public ArrayList<Book> search(String field, String value) throws SQLException {
-    ArrayList<Book> books = new ArrayList<>();
+
+    //Book_ISBN, title, Publication_Year, Category, price, amount, Publisher
+    public ArrayList<Book> search(String field, String value) throws SQLException {
+        ArrayList<Book> books = new ArrayList<>();
         String query = "SELECT * FROM Book WHERE " + field + " = '" + value + "'";
         var resultSet = connection.getStatement().executeQuery(query);
         while (resultSet.next()) {
@@ -80,6 +81,7 @@ public ArrayList<Book> search(String field, String value) throws SQLException {
         }
         return books;
     }
+
     public ArrayList<Book> searchByAuthor(String author) throws SQLException {
         ArrayList<Book> books = new ArrayList<>();
         String query = "SELECT * FROM Book WHERE Book_ISBN IN (SELECT Book_ISBN FROM Author WHERE Author_Name = '"
@@ -98,6 +100,7 @@ public ArrayList<Book> search(String field, String value) throws SQLException {
         }
         return books;
     }
+
     // get all books
     public ArrayList<Book> getAllBooks() {
         ArrayList<Book> books = new ArrayList<>();
