@@ -5,46 +5,37 @@ export default function BookCard(props) {
     const [count, setCount] = React.useState(0);
     const [Error, setError] = React.useState(null);
     function increase() {
-        if (count === props.available - 1) {
-            //NO stock
-            setCount(old => {
-                return old + 1;
-            });
-            setError(() => {
-                return (<div className="Error">
-                    No more items in stock !!
-                </div>);
-            });
-        }
-        else if (count < props.available) {
-            setCount(old => {
-                return old + 1;
-            });
-        }
-        else {
-            setError(() => {
-                return (<div className="Error">
-                    No more items in stock !!
-                </div>);
-            });
-        }
+         let res ;
         // if he presed  + then send to the backend the book id
-     /*   async function Addbook() {
-            let result = await fetch(`${environment.env}/Addbook`, {
+        async function Addbook() {
+            let result = await fetch(`${environment.env}/addToCart`, {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json'
                 },
                 body: JSON.stringify(
                 {
-                  customerid:location.state.customerid,
+                  customerid:props.location.state.id,
                   bookid: props.id
                 }
               )
             });
-            let res = await result.json();
+             res = await result.json();
         }
-        Addbook();*/
+        Addbook();
+
+        if(res==="accepted"){
+            setCount(old => {
+                return old + 1;
+            });
+        }
+        else{
+            setError(() => {
+                return (<div className="Error">
+                    No more items in stock !!
+                </div>);
+            });
+        }
 
     };
     function decrease() {
@@ -52,28 +43,29 @@ export default function BookCard(props) {
             return old > 0 ? old - 1 : 0;
         })
         //  // if he presed  - then send to the backend the book id 
-        /*async function Removebook() {
-            let result = await fetch(`${environment.env}/Removebook`, {
+        async function Removebook() {
+            let result = await fetch(`${environment.env}/removeFromCart`, {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json'
                 },
                 body: JSON.stringify(
                 {
-                  customerid:location.state.customerid,
+                  customerid:props.location.state.id,
                   bookid: props.id
                 }
               )
             });
             let res = await result.json();
         }
-    Removebook();*/
+    Removebook();
     };
 
     return (
         <div className="Card">
- <div className="Card">
+            <div className="img_container">
             <img src={props.img} alt={props.name} />
+            </div>
             <div className="description">
                      <h3>{props.name}</h3>
                     <h3 id="price">${props.price}</h3>
@@ -84,7 +76,6 @@ export default function BookCard(props) {
                 </div>
             </div>
             {Error}
-        </div>
         </div>
     );
 }

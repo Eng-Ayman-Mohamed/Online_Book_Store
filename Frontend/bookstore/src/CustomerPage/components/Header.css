@@ -1,0 +1,55 @@
+
+/*Start Header*/
+
+.CHeader{
+ 
+    padding-top: 20px;
+    height: 35px;
+    overflow: hidden;
+    background-color:var(--main-color);;
+    padding: 20px 10px;
+}
+.CHeader .Cart_1{
+    padding-left: 50px;
+    float: left;
+    font-size: 45px;
+    color: white;
+    cursor: pointer;
+}
+.CHeader .Cart_2{
+    padding-right: 40px;
+    float: right;
+    font-size: 45px;
+    color: white;
+    cursor: pointer;
+}
+
+.CHeader .search {
+    margin-top: 0;
+    margin-left: 30%;
+    text-align: center;
+    background-color: white;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    border: none;
+    width: 30%;
+    height: 35px;
+    border-radius: 20px;
+
+}
+ ::placeholder{
+    color: #010000;
+    opacity: .2;
+}
+.select{
+    height: 20px;
+    width: 20px;
+    border-radius: 20px;
+    cursor:pointer;
+}
+option{
+    background-color:white ;
+    font-family:"Poppins" ;
+}
