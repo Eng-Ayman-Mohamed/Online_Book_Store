@@ -160,9 +160,9 @@ function SignUp() {
             <input
               type="text"
               placeholder="User name"
-              name="username"
+              name="userName"
               required
-              value={info.username}
+              value={info.userName}
               onChange={handleChange}
             />
           </div>

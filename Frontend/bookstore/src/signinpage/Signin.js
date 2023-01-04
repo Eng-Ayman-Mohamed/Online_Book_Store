@@ -29,7 +29,7 @@ function Signin() {
       let UserState = { type: message.type, username: message.username };
       //then route based on type of user
       if(UserState.type === "customer"){
-        nav("/customer", { state: UserState });
+        nav("/Customerpage", { state: UserState });
       }else{
         nav("/manager", { state: UserState });
       }

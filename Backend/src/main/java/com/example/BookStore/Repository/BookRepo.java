@@ -82,7 +82,8 @@ public ArrayList<Book> search(String field, String value) throws SQLException {
     }
     public ArrayList<Book> searchByAuthor(String author) throws SQLException {
         ArrayList<Book> books = new ArrayList<>();
-        String query = "SELECT * FROM Book WHERE Book_ISBN IN (SELECT Book_ISBN FROM Author WHERE Author_Name = '"
+        String query = "SELECT * FROM Book WHERE Book_ISBN IN" +
+                " (SELECT Book_ISBN FROM Author WHERE Author_Name = '"
                 + author + "')";
         var resultSet = connection.getStatement().executeQuery(query);
         while (resultSet.next()) {
