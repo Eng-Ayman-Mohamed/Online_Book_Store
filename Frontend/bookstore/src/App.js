@@ -6,6 +6,7 @@ import Profile from "./profilePage/Profile";
 import Customerpage from "./CustomerPage/Customerpage";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Search from "./SearchPage/Search";
 function App() {
 	return (
 		<Router>
@@ -15,6 +16,7 @@ function App() {
 				<Route path='/signup' element={<SignUp />} />
 				<Route path='/payment' element={<Payment />} />
 				<Route path='/homePage/Profile' element={<Profile />} />
+				<Route path='/Search' element={<Search />} />
 			</Routes>
 		</Router>
 	);
