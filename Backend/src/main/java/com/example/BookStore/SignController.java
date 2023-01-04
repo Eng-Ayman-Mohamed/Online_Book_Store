@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/sign")
 @CrossOrigin(origins = "http://localhost:3000")
+
 public class SignController {
 
       Customer customer = new Customer();

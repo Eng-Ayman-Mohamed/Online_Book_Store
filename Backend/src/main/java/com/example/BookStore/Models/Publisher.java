@@ -1,37 +1,37 @@
 package com.example.BookStore.Models;
 
 public class Publisher {
-    private String Name;
-    private String Address;
-    private String PhoneNum;
+    private String name;
+    private String address;
+    private String phone;
 
-    public Publisher(String name, String address, String phoneNum) {
-        Name = name;
-        Address = address;
-        PhoneNum = phoneNum;
+    public Publisher(String name, String address, String phone) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
-    public String getPhoneNum() {
-        return PhoneNum;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNum(String phoneNum) {
-        PhoneNum = phoneNum;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

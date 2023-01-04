@@ -14,7 +14,7 @@ public class DBConnection {
     public boolean connect() {
         String url = "jdbc:mysql://localhost:3306/online_book_store";
         String userName = "root";
-        String password = "abdu";
+        String password = "a7med3z";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(url, userName, password);

@@ -2,7 +2,6 @@ package com.example.BookStore.Repository;
 
 import com.example.BookStore.Models.Book;
 import com.example.BookStore.Models.Customer;
-import com.example.BookStore.Models.Manager;
 
 import java.util.ArrayList;
 
@@ -12,34 +11,12 @@ public class ManagerRepo {
     public void setConnection(DBConnection connection) {
         this.connection = connection;
     }
+
     //Promote registered customer to manager
     //customer > userName, Phone, FName, LName, email, Password, promoted, Address, PromoteMN
-// manager>userName, Address, FName, LName, Phone, email, Password
-
-  public Manager getManager(String username){
-String query = "SELECT * FROM manager WHERE username = '" + username + "'";
-      try {
-          if (connection.getStatement().executeQuery(query).next()) {
-              Manager manager = new Manager();
-              manager.setUserName(username);
-              manager.setAddress(connection.getStatement().executeQuery(query).getString("address"));
-              manager.setFname(connection.getStatement().executeQuery(query).getString("fname"));
-              manager.setLname(connection.getStatement().executeQuery(query).getString("lname"));
-              manager.setPhone(connection.getStatement().executeQuery(query).getString("phone"));
-              manager.setEmail(connection.getStatement().executeQuery(query).getString("email"));
-              manager.setPassword(connection.getStatement().executeQuery(query).getString("password"));
-              return manager;
-          }
-      } catch (Exception ex) {
-          System.out.println("ERROR: " + ex);
-      }
-      return null;
-  }
-
-
-
-    public boolean promoteCustomer(String username,String managerName) {
-        String query = "UPDATE customer SET promoted = 1 , PromoteMN ="+managerName +"WHERE username = '" + username + "'";
+    //manager >userName, Address, FName, LName, Phone, email, Password
+    public boolean promoteCustomer(String username, String managerName) {
+        String query = "UPDATE customer SET promoted = 1 , PromoteMN = '" + managerName + "' WHERE username = '" + username + "'";
         try {
             connection.getStatement().executeUpdate(query);
             return true;
@@ -48,13 +25,14 @@ String query = "SELECT * FROM manager WHERE username = '" + username + "'";
         }
         return false;
     }
+
     // get all customers
-    public ArrayList<Customer> getAllCustomers(){
+    public ArrayList<Customer> getAllCustomers() {
         ArrayList<Customer> customers = new ArrayList<>();
         String query = "SELECT * FROM customer";
         try {
             var resultSet = connection.getStatement().executeQuery(query);
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 Customer customer = new Customer();
                 customer.setUserName(resultSet.getString(1));
                 customer.setFname(resultSet.getString(2));
@@ -76,13 +54,12 @@ String query = "SELECT * FROM manager WHERE username = '" + username + "'";
     public ArrayList<Book> getAllBooks() {
         ArrayList<Book> books = new ArrayList<>();
         //book > Book_ISBN, title, Publication_Year, Category, price, amount, Publisher
-
         String query = "SELECT * FROM book";
         try {
             var resultSet = connection.getStatement().executeQuery(query);
             while (resultSet.next()) {
                 Book book = new Book();
-               book.setBook_ISBN(resultSet.getString(1));
+                book.setBook_ISBN(resultSet.getString(1));
                 book.setTitle(resultSet.getString(2));
                 book.setPublication_Year(resultSet.getString(3));
                 book.setCategory(resultSet.getString(4));
@@ -90,15 +67,11 @@ String query = "SELECT * FROM manager WHERE username = '" + username + "'";
                 book.setAmount(resultSet.getInt(6));
                 book.setPublisher(resultSet.getString(7));
                 books.add(book);
-
             }
-
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("ERROR: " + ex);
         }
         return books;
-
     }
 
     //* c. The top 10 selling books for the last three month
@@ -150,9 +123,8 @@ String query = "SELECT * FROM manager WHERE username = '" + username + "'";
             System.out.println("ERROR: " + ex);
         }
         return customers;
-
-
     }
+
     // The total sales for books in the previous month
     public ArrayList<Book> get_total_sales() {
         //shopping_cart> id, userName, amountRequired, total_price, state, Date
@@ -177,7 +149,6 @@ String query = "SELECT * FROM manager WHERE username = '" + username + "'";
             }
         } catch (Exception ex) {
             System.out.println("ERROR: " + ex);
-
         }
         return books;
     }
