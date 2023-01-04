@@ -14,7 +14,6 @@ public class CustomerRepo {
     public void setConnection(DBConnection connection) {
         this.connection = connection;
     }
-
     //userName, Phone, FName, LName, email, Password, promoted, Address, PromoteMN
     Customer get_data(String username) throws SQLException {
         String query = "SELECT * FROM manager WHERE (username = '" + username + "' OR email = '" + username + "')";
@@ -33,24 +32,51 @@ public class CustomerRepo {
         return customer;
     }
 
-    List<Book> get_books(int amount) {
-        ArrayList<Book> books = new ArrayList<>();
-        String query = "SELECT * FROM book WHERE amount > 0 LIMIT " + amount;
+    public Customer getCustomer(String username) {
+        String query = "SELECT * FROM customer WHERE username = '" + username + "'";
         try {
-            var resultSet = connection.getStatement().executeQuery(query);
-            while (resultSet.next()) {
-                Book book = new Book();
-                book.setBook_ISBN(resultSet.getString(1));
-                book.setTitle(resultSet.getString(2));
-                book.setPublication_Year(resultSet.getString(3));
-                book.setCategory(resultSet.getString(4));
-                book.setPrice(resultSet.getInt(5));
-                book.setAmount(resultSet.getInt(6));
-                book.setPublisher(resultSet.getString(7));
+            var result = connection.getStatement().executeQuery(query);
+            if (result.next()) {
+                Customer customer = new Customer();
+                customer.setUserName(result.getString("username"));
+                customer.setFname(result.getString("fname"));
+                customer.setLname(result.getString("lname"));
+                customer.setPhone(result.getString("phone"));
+                customer.setEmail(result.getString("email"));
+                customer.setPassword(result.getString("password"));
+                customer.setAddress(result.getString("address"));
+                return customer;
             }
         } catch (Exception ex) {
             System.out.println("ERROR: " + ex);
         }
-        return books;
+        return null;
+    }
+
+    public boolean editCustomer(Customer customer) {
+        String query = "UPDATE customer SET fname = '" + customer.getFname()
+                + "', lname = '" + customer.getLname() + "', phone = '" + customer.getPhone()
+                + "', email = '" + customer.getEmail() + "', password = '" + customer.getPassword()
+                + "', address = '" + customer.getAddress() + "' WHERE username = '" +
+                customer.getUserName() + "'";
+        try {
+            connection.getStatement().executeUpdate(query);
+            return true;
+        } catch (Exception ex) {
+            System.out.println("ERROR: " + ex);
+        }
+        return false;
+    }
+
+    //remove not confirmed shopping cart when user log out
+    public boolean customer_log_out(String username) {
+        String query = "DELETE FROM shopping_cart WHERE username = '" + username + "' AND state = false";
+        try {
+            connection.getStatement().executeUpdate(query);
+            return true;
+        } catch (Exception ex) {
+            System.out.println("ERROR: " + ex);
+        }
+        return false;
     }
 }

@@ -1,36 +1,48 @@
 package com.example.BookStore.Models;
 
 public class Manager {
-    private String username;
-    private String name;
+    private String userName;
+    private String phone;
+    private String fname;
+    private String lname;
     private String email;
     private String address;
-    private String phone;
     private String password;
 
-    public Manager(String username, String name, String email, String address, String phone, String password) {
-        this.username = username;
-        this.name = name;
-        this.email = email;
-        this.address = address;
+    public Manager() {
+
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
         this.phone = phone;
-        this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFname() {
+        return fname;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFname(String fname) {
+        this.fname = fname;
     }
 
-    public String getName() {
-        return name;
+    public String getLname() {
+        return lname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
     public String getEmail() {
@@ -47,14 +59,6 @@ public class Manager {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getPassword() {

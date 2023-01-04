@@ -7,7 +7,7 @@ public class Book {
     private String category;
     private int price;
     private int amount;
-    private String Publisher;
+    private String publisher;
 
     public Book(){}
     public Book(String book_ISBN, String title, String publication_Year, String category, int price, int amount, String publisher) {
@@ -17,7 +17,7 @@ public class Book {
         this.category = category;
         this.price = price;
         this.amount = amount;
-        Publisher = publisher;
+        this.publisher = publisher;
     }
 
     public String getBook_ISBN() {
@@ -69,10 +69,10 @@ public class Book {
     }
 
     public String getPublisher() {
-        return Publisher;
+        return publisher;
     }
 
     public void setPublisher(String publisher) {
-        Publisher = publisher;
+        this.publisher = publisher;
     }
 }
