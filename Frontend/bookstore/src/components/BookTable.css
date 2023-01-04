@@ -34,12 +34,30 @@
 .th {
 	padding-top: 12px;
 	padding-bottom: 12px;
-	background-color: #0d294f;
-	color: white;
+	background-color: var(--back-color);
+	color: black;
+	font-weight: bold;
 }
 .tr:hover .td {
 	background-color: #ddd;
 }
 a {
 	text-decoration: none;
+}
+.changing-pages {
+	display: flex;
+	gap: 2em;
+	justify-content: center;
+	align-items: center;
+}
+.changing-pages button {
+	width: 10em;
+	height: 3em;
+	box-sizing: border-box;
+	background: var(--main-color);
+	color: white;
+	font-weight: bold;
+}
+.changing-pages p {
+	font-size: 1.5em;
 }
