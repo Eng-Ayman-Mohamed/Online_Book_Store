@@ -13,24 +13,33 @@ public class CartRepo {
     public void setConnection(DBConnection connection) {
         this.connection = connection;
     }
+//id, userName, amountRequired, total_price, state, Date
+    // create cart and return cart id if  not exist or return cart id if exist
+        public int createCart(String username) throws SQLException {
+            String query = "SELECT * FROM shopping_cart WHERE userName = '" + username + "' AND state = 'not paid'";
+            ResultSet resultSet = connection.getStatement().executeQuery(query);
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+            } else {
+                query = "INSERT INTO shopping_cart (userName, amountRequired, total_price, state, Date) VALUES " +
+                        "('" + username + "', 0, 0, 'not paid', NOW())";
+                connection.getStatement().executeUpdate(query);
+                query = "SELECT * FROM shopping_cart WHERE userName = '" + username + "' AND state = 'not paid'";
+                resultSet = connection.getStatement().executeQuery(query);
+                if (resultSet.next()) {
+                    return resultSet.getInt("id");
+                }
 
-    public int createCart(String username) throws SQLException {
-        int count_records = 0;
-        String query = "SELECT COUNT(id) FROM shopping_cart";
-        ResultSet resultSet = connection.getStatement().executeQuery(query);
-        if (resultSet.next()) {
-            count_records = resultSet.getInt(1);
-        }
-        count_records++;
-        try {
-            query = "INSERT INTO shopping_cart VALUES (" + count_records + ", '" + username + "', " + 0 + ", " + 0 + ", false)";
-            connection.getStatement().executeUpdate(query);
-        } catch (Exception ex) {
-            System.out.println("ERROR: " + ex);
+
+
+            }
             return -1;
+
         }
-        return count_records;
-    }
+
+
+
+
 
     public boolean addBookToItemsAndCart(String ISBN, int cartId) throws SQLException {
 
@@ -161,7 +170,7 @@ public class CartRepo {
     //id, userName, amountRequired, total_price, state
 
     public shopping_cart getCart(int cartId) {
-        String query = "SELECT * FROM shopping_cart WHERE id = " + cartId + "'";
+        String query = "SELECT * FROM shopping_cart WHERE id = " + cartId ;
         try {
             var resultSet = connection.getStatement().executeQuery(query);
             if (resultSet.next()) {
@@ -170,7 +179,7 @@ public class CartRepo {
                 cart.setUserName(resultSet.getString("username"));
                 cart.setAmountRequired(resultSet.getInt("amountRequired"));
                 cart.setTotal_price(resultSet.getInt("total_price"));
-                cart.setState(String.valueOf(resultSet.getBoolean("state")));
+                cart.setState(resultSet.getString("state"));
                 cart.setDate(resultSet.getDate("date"));
                 return cart;
             }

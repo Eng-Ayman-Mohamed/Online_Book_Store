@@ -48,21 +48,8 @@ public class CustomerController {
     @GetMapping("/searchByTitle/{title}")
     public ArrayList<Book> searchByTitle(@PathVariable String title) throws SQLException {
         bookRepo.setConnection(BookStoreApplication.dbConnection);
-        ArrayList<Book> result = bookRepo.search("title", title);
-        Book one = new Book("1", "title", "789","1011", 123, 245, "Jump");
-        Book two = new Book("2", "title", "789","1011", 123, 245, "Jump");
-        Book three = new Book("3", "title", "789","1011", 123, 245, "Jump");
-        Book four = new Book("4", "title", "789","1011", 123, 245, "Jump");
-        Book five = new Book("5", "title", "789","1011", 123, 245, "Jump");
-        Book six = new Book("6", "title", "789","1011", 123, 245, "Jump");
 
-        result.add(one);
-        result.add(two);
-        result.add(three);
-        result.add(four);
-        result.add(five);
-        result.add(six);
-        return  result;
+return bookRepo.search("title",title);
     }
 
     // search by author
@@ -109,9 +96,10 @@ public class CustomerController {
 
     //3. Add books to a shopping cart
     @PostMapping("/addToCart/{cardID}")
-    public boolean addToCart(@RequestBody Book book, @PathVariable int cardID) throws SQLException {
+    public boolean addToCart(@RequestBody Card_Request card_request, @PathVariable int cardID) throws SQLException {
+        System.out.println(card_request.bookid+" "+cardID);
         cartRepo.setConnection(BookStoreApplication.dbConnection);
-        return cartRepo.addBookToItemsAndCart(book.getBook_ISBN(), cardID);
+        return cartRepo.addBookToItemsAndCart(card_request.bookid, cardID);
     }
 
     //4. Remove books from a shopping cart
@@ -143,5 +131,34 @@ public class CustomerController {
     public boolean logout(@PathVariable String username) throws SQLException {
         customerRepo.setConnection(BookStoreApplication.dbConnection);
         return customerRepo.customer_log_out(username);
+    }
+}
+class Card_Request {
+     int customerid;
+     String	bookid;
+    	int cartid;
+
+    public int getCustomerid() {
+        return customerid;
+    }
+
+    public void setCustomerid(int customerid) {
+        this.customerid = customerid;
+    }
+
+    public String getBookid() {
+        return bookid;
+    }
+
+    public void setBookid(String bookid) {
+        this.bookid = bookid;
+    }
+
+    public int getCartid() {
+        return cartid;
+    }
+
+    public void setCartid(int cartid) {
+        this.cartid = cartid;
     }
 }

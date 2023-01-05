@@ -9,7 +9,7 @@ public class DBConnectionTest {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/online_book_store";
         String username = "root";
-        String password = "Franko12345&*.";
+        String password = "abdu";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection(url, username, password);

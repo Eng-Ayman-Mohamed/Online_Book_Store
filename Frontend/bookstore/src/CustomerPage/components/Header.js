@@ -8,7 +8,7 @@ import {
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
 
-export default function Header({ cartid }) {
+export default function Header({ cartid,location }) {
 	let [keyword, setKeyword] = React.useState("");
 	let [searchType, setSearchType] = React.useState("Title");
 	function search_options(e) {
@@ -18,7 +18,8 @@ export default function Header({ cartid }) {
 
 	function Profile() {
 		//nav to profile
-		NAV("/Customerpage/Profile", { state: cartid });
+		console.log(location)
+		NAV("/Customerpage/Profile", { state: location.state });
 	}
 	function Cart() {
 		//nav to Cart

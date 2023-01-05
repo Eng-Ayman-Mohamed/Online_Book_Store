@@ -22,7 +22,7 @@ function SignUp() {
   React.useEffect(() => {
     async function getdata() {
       let result = await fetch(
-        `${environment.Host}/${route}/get/${location.state.userName}`,
+        `${environment.Host}/${route}/get/${location.state.username}`,
         {
           method: "GET",
           headers: {
@@ -88,7 +88,7 @@ function SignUp() {
         ? "manager/editManager"
         : "customer/editCustomer";
     let result = await fetch(`${environment.Host}/${route}`, {
-      method: "POST",
+      method: "put",
       headers: {
         "Content-type": "application/json",
       },
@@ -96,8 +96,8 @@ function SignUp() {
     });
     let message = await result.json();
     console.log(message);
-    if (message.state === "accepted") {
-      nav("/homePage");
+    if (message) {
+      window.alert("Profile Updated");
     } else {
       setError(() => {
         return true;
@@ -183,10 +183,10 @@ function SignUp() {
           <div className="contain">
             <input
               type="text"
-              placeholder={info.username}
-              name="username"
+              placeholder={info.userName}
+              name="userName"
               required
-              value={info.username}
+              value={info.userName}
               onChange={handleChange}
               disabled={view}
             />

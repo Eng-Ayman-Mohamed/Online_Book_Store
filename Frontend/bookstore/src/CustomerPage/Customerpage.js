@@ -19,7 +19,7 @@ export default function Customerpage() {
 			let result = await fetch(
 				`${environment.Host}/customer/createCard/${location.state.username}`,
 				{
-					method: "get",
+					method: "post",
 					headers: {
 						"Content-type": "application/json",
 					},
@@ -72,7 +72,7 @@ export default function Customerpage() {
 	});
 	return (
 		<div className='Main'>
-			{cartID != null && <Header cartid={cartID} />}
+			{cartID != null && <Header cartid={cartID} location={location} />}
 			<div className='Explore'>
 				<div className='container2'>{BookHtml}</div>
 			</div>
