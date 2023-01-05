@@ -1,13 +1,27 @@
 package com.example.BookStore.Models;
 
+import java.sql.Date;
+
 public class shopping_cart {
     private int id;
     private String userName;
     private int amountRequired;
     private int total_price;
     private String state;
-
+private Date date;
     public shopping_cart() {
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public shopping_cart(int id, String userName, int amountRequired, int total_price, String state) {
