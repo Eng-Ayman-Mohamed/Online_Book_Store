@@ -7,11 +7,12 @@ export default function BookCard(props) {
 	const [Error, setError] = React.useState(null);
 	function increase() {
 		let res = "accepted";
+		console.log(props);
 		if (props.cartId !== undefined) {
 			// if he presed  + then send to the backend the book id
 			async function Addbook() {
 				let result = await fetch(
-					`${environment.Host}/customer/addToCart`,
+					`${environment.Host}/customer/addToCart/${props.cartId}`,
 					{
 						method: "POST",
 						headers: {
@@ -46,11 +47,10 @@ export default function BookCard(props) {
 			setCount((old) => {
 				return old > 0 ? old - 1 : 0;
 			});
-			//  // if he presed  - then send to the backend the book id
 			if (count !== 0) {
 				async function Removebook() {
 					let result = await fetch(
-						`${environment.Host}/customer/removeFromCart`,
+						`${environment.Host}/customer/removeFromCart/${props.cartId}`,
 						{
 							method: "POST",
 							headers: {

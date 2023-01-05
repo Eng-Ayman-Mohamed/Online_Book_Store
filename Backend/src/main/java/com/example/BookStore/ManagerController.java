@@ -98,6 +98,4 @@ public class ManagerController {
         managerRepo.setConnection(BookStoreApplication.dbConnection);
         return managerRepo.get_top_10_books();
     }
-
-
 }
