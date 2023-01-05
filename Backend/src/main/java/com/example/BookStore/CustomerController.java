@@ -104,7 +104,7 @@ public class CustomerController {
     @PostMapping("/createCard/{username}")
     public int createCard(@PathVariable String username) throws SQLException {
         cartRepo.setConnection(BookStoreApplication.dbConnection);
-        return cartRepo.createCard(username);
+        return cartRepo.createCart(username);
     }
 
     //3. Add books to a shopping cart
