@@ -12,6 +12,7 @@ import CustomerTable from "./components/CustomerTable";
 import PlaceOrder from "./PlaceOrder/PlaceOrder"
 import AddNewBook from "./ManagerBooks/AddNewBook";
 import UpdateBook from "./ManagerBooks/UpdateBook";
+import MangerSearch from "./SearchPage/MangerSearch"
 function App() {
 	return (
 		<Router>
@@ -29,6 +30,7 @@ function App() {
 				<Route path='/addnewbook' element={<AddNewBook />} />
         		<Route path='/PlaceOrder' element={<PlaceOrder />} />
 				<Route path='/updatebook' element={<UpdateBook />} />
+				<Route path='/MangerSearch' element={<MangerSearch />} />
       </Routes>
     </Router>
   );

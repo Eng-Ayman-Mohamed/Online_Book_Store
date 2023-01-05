@@ -1,71 +1,44 @@
 import "./CustomerTable.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 const CustomerTable = ({ location }) => {
-	let customers = [
-		{
-			userName: "user1",
-			phone: "+1234",
-			fName: "John",
-			lName: "Doe",
-			email: "JD@mail.com",
-			promoted: false,
-			address: "Home of Doe",
-		},
-		{
-			userName: "user2",
-			phone: "+1234",
-			fName: "John",
-			lName: "Doe",
-			email: "JD@mail.com",
-			promoted: false,
-			address: "Home of Doe",
-		},
-		{
-			userName: "user3",
-			phone: "+1234",
-			fName: "John",
-			lName: "Doe",
-			email: "JD@mail.com",
-			promoted: false,
-			address: "Home of Doe",
-		},
-		{
-			userName: "user4",
-			phone: "+1234",
-			fName: "John",
-			lName: "Doe",
-			email: "JD@mail.com",
-			promoted: false,
-			address: "Home of Doe",
-		},
-		{
-			userName: "user5",
-			phone: "+1234",
-			fName: "John",
-			lName: "Doe",
-			email: "JD@mail.com",
-			promoted: false,
-			address: "Home of Doe",
-		},
-		{
-			userName: "user6",
-			phone: "+1234",
-			fName: "John",
-			lName: "Doe",
-			email: "JD@mail.com",
-			promoted: false,
-			address: "Home of Doe",
-		},
-		{
-			userName: "user7",
-			phone: "+1234",
-			fName: "John",
-			lName: "Doe",
-			email: "JD@mail.com",
-			promoted: false,
-			address: "Home of Doe",
-		},
-	];
+	let [customers,setcustomers]=React.useState([]);
+	useEffect(() => {
+        let res;
+        async function getorders() {
+            let result = await fetch(
+                `${environment.Host}/manager/viewCustomers`,
+                {
+                    method: "get",
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                },
+            );
+            res = await result.json();
+            setcustomers(res);
+        }
+        getorders();
+	}, []);
+	
+	function Promote(customer){
+        let res;
+        async function confirmorder() {
+            let result = await fetch(
+                `${environment.Host}/manager/promoteCustomer`,
+                {
+                    method: "put",
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        customer: customer,
+                    }),
+                },
+            );
+            res = await result.json();
+        }
+        confirmorder();
+    }
 	const [page, setPage] = useState(1);
 	const [content, setContent] = useState([]);
 	let size = 3;
@@ -84,7 +57,7 @@ const CustomerTable = ({ location }) => {
 					<div className='td'>{customers[i].address}</div>
 					<div className='td'>
 						{!customers[i].promoted && (
-							<button>Promote To manager</button>
+							<button onClick={()=>Promote(customers[i])}>Promote To manager</button>
 						)}
 						{customers[i].promoted && <p>Already Promoted</p>}
 					</div>

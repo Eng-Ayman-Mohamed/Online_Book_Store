@@ -2,7 +2,7 @@ import "./BookTable.css";
 import { useState, setError, useEffect } from "react";
 import { environment } from "../Environment";
 import { useNavigate, useLocation } from "react-router-dom";
-const BookTable = ({ books, cartId, location }) => {
+const BookTable = ({ books, location }) => {
 	const [page, setPage] = useState(1);
 	const [content, setContent] = useState([]);
 	let size = 20;
