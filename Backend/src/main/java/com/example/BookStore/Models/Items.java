@@ -4,13 +4,13 @@ public class Items {
     private String bookId;
     private int cart_id;
     private int amountRequired;
-    private int Price;
+    private int price;
 
     public Items(String bookId, int cart_id, int amountRequired, int price) {
         this.bookId = bookId;
         this.cart_id = cart_id;
         this.amountRequired = amountRequired;
-        Price = price;
+        this.price = price;
     }
 
     public String getBookId() {
@@ -38,10 +38,10 @@ public class Items {
     }
 
     public int getPrice() {
-        return Price;
+        return price;
     }
 
     public void setPrice(int price) {
-        Price = price;
+        this.price = price;
     }
 }
