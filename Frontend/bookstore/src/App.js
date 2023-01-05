@@ -25,9 +25,9 @@ function App() {
 				<Route path='/Cart' element={<ShoppingCart />} />
 				<Route path='/CustomerTable' element={<CustomerTable />} />
 				<Route path='/PlaceOrder' element={<PlaceOrder />} />
-        <Route path="/manager" element={<Manager />} />
+       			 <Route path="/manager" element={<Manager />} />
 				<Route path='/addnewbook' element={<AddNewBook />} />
-        <Route path='/PlaceOrder' element={<PlaceOrder />} />
+        		<Route path='/PlaceOrder' element={<PlaceOrder />} />
 				<Route path='/updatebook' element={<UpdateBook />} />
       </Routes>
     </Router>
