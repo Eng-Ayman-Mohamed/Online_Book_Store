@@ -4,24 +4,16 @@ import java.sql.Date;
 
 public class Order {
     private String id;
+    private String manager_name;
+    private String TotalPrice;
     private String quantity;
     private Date createdAt;
     private Date updatedAt;
     private String publisher;
     private String bookId;
     private String confirmed;
-public Order(){
 
-}
-    public Order(String id, String quantity, Date createdAt, Date updatedAt, String publisher, String bookId, String confirmed) {
-        this.id = id;
-        this.quantity = quantity;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.publisher = publisher;
-        this.bookId = bookId;
-        this.confirmed = confirmed;
-    }
+    public Order() {}
 
     public String getId() {
         return id;
