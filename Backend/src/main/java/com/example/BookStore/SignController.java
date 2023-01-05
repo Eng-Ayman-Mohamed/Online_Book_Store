@@ -49,7 +49,7 @@ public class SignController {
         boolean res = signRepo.checkManager(sinned.getUsername(), sinned.getPassword());
         response.setState(res ? "accepted" : "rejected");
         response.setUsername(sinned.getUsername());
-        response.setType("customer");
+        response.setType("manager");
         return response;
     }
 
