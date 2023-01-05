@@ -96,7 +96,7 @@ function SignUp() {
     });
     let message = await result.json();
     console.log(message);
-    if (message.state === "accepted") {
+    if (message == true) {
       nav("/homePage");
     } else {
       setError(() => {
@@ -117,10 +117,19 @@ function SignUp() {
             <input
               disabled={view}
               type="text"
-              placeholder={info.name}
-              name="name"
+              placeholder={info.fname}
+              name="fname"
               required
-              value={info.name}
+              value={info.fname}
+              onChange={handleChange}
+            />
+            <input
+              disabled={view}
+              type="text"
+              placeholder={info.lname}
+              name="lname"
+              required
+              value={info.lname}
               onChange={handleChange}
             />
           </div>

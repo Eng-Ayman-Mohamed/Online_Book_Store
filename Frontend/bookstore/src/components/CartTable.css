@@ -1,9 +1,9 @@
-.book-table {
+.table {
 	display: grid;
 	grid-template-columns: repeat(8, 1fr);
 	text-align: center;
 }
-.book-table a {
+.table a {
 	display: contents;
 	color: black;
 	text-decoration: none;
@@ -92,7 +92,7 @@ a {
     align-items: center;
     cursor: pointer;
 }
- .quantity p {
+.quantity p {
     margin: 0;
     color: white;
 }

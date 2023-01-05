@@ -1,7 +1,7 @@
-import "./BookTable.css";
+import "./CartTable.css";
 import { useState, setError, useEffect } from "react";
 import { environment } from "../Environment";
-const BookTable = ({ books, cartId, location }) => {
+const CartTable = ({ books, cartId, location }) => {
 	const [page, setPage] = useState(1);
 	const [content, setContent] = useState([]);
 	let size = 20;
@@ -161,4 +161,4 @@ const BookTable = ({ books, cartId, location }) => {
 	);
 };
 
-export default BookTable;
+export default CartTable;
