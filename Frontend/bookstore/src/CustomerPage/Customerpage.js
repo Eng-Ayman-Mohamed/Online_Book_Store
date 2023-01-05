@@ -7,6 +7,7 @@ import { environment } from "../Environment";
 import Header from "./components/Header";
 export default function Customerpage() {
 	let [someBooks, setsomeBooks] = React.useState([]);
+	let [cartID, setCartID] = React.useState(null);
 	let Books = [];
 
 	const NAV = useNavigate();
@@ -14,6 +15,19 @@ export default function Customerpage() {
 
 	//get some Books from the stock
 	React.useEffect(() => {
+		async function createCart() {
+			let result = await fetch(
+				`${environment.Host}/customer/createCard/${location.state.username}`,
+				{
+					method: "get",
+					headers: {
+						"Content-type": "application/json",
+					},
+				},
+			);
+			let res = await result.json();
+			setCartID(res);
+		}
 		async function getBooks() {
 			let result = await fetch(`${environment.Host}/customer/getBooks`, {
 				method: "get",
@@ -24,7 +38,12 @@ export default function Customerpage() {
 			let res = await result.json();
 			setsomeBooks(res);
 		}
-		getBooks();
+		if (location.state === null) {
+			NAV("/signin");
+		} else {
+			createCart();
+			getBooks();
+		}
 	}, []);
 
 	for (let i = 0; i < 20 && i < someBooks.length; i++) {
@@ -47,23 +66,15 @@ export default function Customerpage() {
 				price={item.price}
 				id={item.id}
 				location={location}
-				cartId={location.state.username}
+				cartId={cartID}
 			/>
 		);
 	});
-
-	function Cart() {
-		//nav to Cart
-		NAV("/", { state: location.state.id });
-	}
 	return (
 		<div className='Main'>
-			<Header cartid={location.state.username} />
+			{cartID != null && <Header cartid={cartID} />}
 			<div className='Explore'>
 				<div className='container2'>{BookHtml}</div>
-			</div>
-			<div className='Cart' onClick={Cart}>
-				<BsFillCartCheckFill />
 			</div>
 		</div>
 	);
