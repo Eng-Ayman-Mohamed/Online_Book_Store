@@ -1,0 +1,54 @@
+.Welcome span {
+    color: #54BAB9;
+    font-size: 40px;
+}
+
+.Welcome {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 44%;
+}
+
+.Manager {
+    height: 100vh;
+    background-color: #fffcf6;
+}
+
+nav {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    background-color: #fff;
+    width: 90px;
+    overflow: hidden;
+    transition: 0.3s;
+    box-shadow: 0 20px 35px rgb(0, 0, 0, 0.1);
+}
+
+nav li:hover {
+    background-color: #eee;
+}
+
+
+
+nav:hover {
+    width: 250px;
+    transition: all 0.3s ease;
+}
+
+nav li {
+    list-style: none;
+}
+
+nav span {
+    display: flex;
+    margin-left: 70px;
+    position: relative;
+    top: -84px;
+    width: 120px;
+}
+
+nav h2 {
+    font-size: 40px;
+}
