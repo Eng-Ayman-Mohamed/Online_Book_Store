@@ -2,7 +2,9 @@ package com.example.BookStore.Repository;
 
 import com.example.BookStore.Models.Book;
 import com.example.BookStore.Models.Customer;
+import com.example.BookStore.Models.Manager;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class ManagerRepo {
@@ -11,7 +13,26 @@ public class ManagerRepo {
     public void setConnection(DBConnection connection) {
         this.connection = connection;
     }
-
+  public Manager getManager(String username) {
+        String query = "SELECT * FROM manager WHERE username = '" + username + "'";
+        try {
+            ResultSet resultSet = connection.getStatement().executeQuery(query);
+            if (resultSet.next()) {
+                Manager manager = new Manager();
+                manager.setUserName(resultSet.getString("username"));
+                manager.setFname(resultSet.getString("fname"));
+                manager.setLname(resultSet.getString("lname"));
+                manager.setEmail(resultSet.getString("email"));
+                manager.setAddress(resultSet.getString("address"));
+                manager.setPhone(resultSet.getString("phone"));
+                manager.setPassword(resultSet.getString("password"));
+                return manager;
+            }
+        } catch (Exception ex) {
+            System.out.println("ERROR: " + ex);
+        }
+        return null;
+    }
     //Promote registered customer to manager
     //customer > userName, Phone, FName, LName, email, Password, promoted, Address, PromoteMN
     //manager >userName, Address, FName, LName, Phone, email, Password
@@ -50,29 +71,7 @@ public class ManagerRepo {
         return customers;
     }
 
-    // get all books
-    public ArrayList<Book> getAllBooks() {
-        ArrayList<Book> books = new ArrayList<>();
-        //book > Book_ISBN, title, Publication_Year, Category, price, amount, Publisher
-        String query = "SELECT * FROM book";
-        try {
-            var resultSet = connection.getStatement().executeQuery(query);
-            while (resultSet.next()) {
-                Book book = new Book();
-                book.setBook_ISBN(resultSet.getString(1));
-                book.setTitle(resultSet.getString(2));
-                book.setPublication_Year(resultSet.getString(3));
-                book.setCategory(resultSet.getString(4));
-                book.setPrice(resultSet.getInt(5));
-                book.setAmount(resultSet.getInt(6));
-                book.setPublisher(resultSet.getString(7));
-                books.add(book);
-            }
-        } catch (Exception ex) {
-            System.out.println("ERROR: " + ex);
-        }
-        return books;
-    }
+
 
     //* c. The top 10 selling books for the last three month
     public ArrayList<Book> get_top_10_books() {

@@ -1,7 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import "./signup.css";
-import {environment} from '../Environment';
+import { useNavigate, useLocation } from "react-router-dom";
+import "./profile.css";
+import { environment } from "../Environment";
 
 export const ValidateEmail = (mail = "") =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(mail) || mail === "";
@@ -15,22 +15,40 @@ export const VaidateAdress = (address = "") =>
 function SignUp() {
   let nav = useNavigate();
   const [Error, setError] = React.useState(false);
-  //userName, Phone, FName, LName, email, Password, promoted, Address, PromoteMN
-  let [info, setInfo] = React.useState({
+  const location = useLocation();
+  let [info, setInfo] = React.useState({});
+  const [view, setview] = React.useState(true);
+  let route = location.state.type;
+  React.useEffect(() => {
+    async function getdata() {
+      let result = await fetch(
+        `${environment.Host}/${route}/get/${location.state.userName}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+      let res = await result.json();
+      setInfo(res);
+    }
+    getdata();
+  }, []);
+  /*
     fname: "",
     lname: "",
     email: "",
     address: "",
     phone: "",
     password: "",
-    userName:""
-  });
-  const [User, setuser] = React.useState("customer");
+    userName: "",
+*/
   let [errors, setErrors] = React.useState({
     mail: false,
     password: false,
     phone: false,
-    address: false
+    address: false,
   });
 
   let handleChange = (e) => {
@@ -62,16 +80,14 @@ function SignUp() {
   };
   let handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      errors.mail ||
-      errors.password ||
-      errors.phone ||
-      errors.address
-    ) {
+    if (errors.mail || errors.password || errors.phone || errors.address) {
       return;
     }
-    let route = User==="customer"? "up": "upManager";
-    let result = await fetch(`${environment.Host}/sign/${route}`, {
+    let route =
+      location.state.type === "manager"
+        ? "manager/editManager"
+        : "customer/editCustomer";
+    let result = await fetch(`${environment.Host}/${route}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -81,31 +97,36 @@ function SignUp() {
     let message = await result.json();
     console.log(message);
     if (message.state === "accepted") {
-      nav("/");
+      nav("/homePage");
     } else {
-      setError(() => { return true; });
+      setError(() => {
+        return true;
+      });
     }
   };
 
+  function EnableEdit() {
+    setview((old) => !old);
+  }
   return (
     <div className="sign-up">
-      <div className="form-container">
-        <h1 className="sign-up-header">Sign Up</h1>
+      <d iv className="form-container">
+        <h1 className="sign-up-header">Profile</h1>
         <form onSubmit={handleSubmit}>
           <div className="contain">
             <input
+              disabled={view}
               type="text"
-              placeholder="first Name"
+              placeholder={info.fname}
               name="fname"
               required
               value={info.fname}
               onChange={handleChange}
             />
-          </div>
-          <div className="contain">
             <input
+              disabled={view}
               type="text"
-              placeholder="Last Name"
+              placeholder={info.lname}
               name="lname"
               required
               value={info.lname}
@@ -114,9 +135,10 @@ function SignUp() {
           </div>
           <div className="contain">
             <input
+              disabled={view}
               className={errors.mail ? "error" : " "}
               type="mail"
-              placeholder="Email"
+              placeholder={info.email}
               name="email"
               required
               value={info.email}
@@ -129,6 +151,7 @@ function SignUp() {
           <div className="contain">
             <input
               className={errors.password ? "error" : " "}
+              disabled={view}
               type="password"
               placeholder="Password: at least 8 characters"
               name="password"
@@ -146,11 +169,12 @@ function SignUp() {
             <input
               className={errors.phone ? "error" : " "}
               type="text"
-              placeholder="Phone Number"
+              placeholder={info.phone}
               name="phone"
               required
               value={info.phone}
               onChange={handleChange}
+              disabled={view}
             />
             <div className={errors.phone ? "error-message" : "hide"}>
               Invalid phone number, please enter a valid 11-digit phone number.
@@ -159,48 +183,66 @@ function SignUp() {
           <div className="contain">
             <input
               type="text"
-              placeholder="User name"
-              name="userName"
+              placeholder={info.username}
+              name="username"
               required
-              value={info.userName}
+              value={info.username}
               onChange={handleChange}
+              disabled={view}
             />
           </div>
           <div className="contain">
             <input
               className={errors.address ? "error" : " "}
               type="text"
-              placeholder="Address"
+              placeholder={info.address}
               name="address"
               required
               value={info.address}
               onChange={handleChange}
+              disabled={view}
             />
             <div className={errors.address ? "error-message" : "hide"}>
               Invalid address: address should contain only alphabets, digits and
               the # symbol.
             </div>
           </div>
-          <div className='check-boxs'>
-            <div >
-              <input className="checkbox" type="checkbox" checked={User === "customer"} onChange={() => setuser("customer")} /> Customer</div>
-            <div>
-              <input className="checkbox" type="checkbox" checked={User === "manager"} onChange={() => setuser("manager")} /> Manager</div>
-          </div>
-          <input
-            className="btn-submit"
-            type="submit"
-            value="Sign Up"
-            name="Sign Up"
-          />
+          {view && (
+            <input
+              className="btn-submit"
+              type="button"
+              value="Edit"
+              name="Edit"
+              onClick={EnableEdit}
+            />
+          )}
+          {!view && (
+            <input
+              className="btn-submit"
+              type="submit"
+              value="Save"
+              name="Sign Up"
+            />
+          )}
         </form>
-      </div>
-      {Error && <div className='ErrorPOP'>
-        <div className='PopUP'>
-          <p>This Email Is in use !!</p>
-          <button onClick={() => { setError(() => { return false; }) }}>OK</button>
+      </d>
+      {Error && (
+        <div className="ErrorPOP">
+          <div className="PopUP">
+            <p>This Email Is in use !!</p>
+
+            <button
+              onClick={() => {
+                setError(() => {
+                  return false;
+                });
+              }}
+            >
+              OK
+            </button>
+          </div>
         </div>
-      </div>}
+      )}
     </div>
   );
 }

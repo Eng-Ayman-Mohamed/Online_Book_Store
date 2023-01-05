@@ -4,6 +4,11 @@ import com.example.BookStore.Models.Customer;
 import com.example.BookStore.Repository.DBConnection;
 import com.example.BookStore.Repository.SignRepo;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.SQLException;
+
+import static com.example.BookStore.BookStoreApplication.dbConnection;
+
 @RestController
 @RequestMapping("/sign")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -11,13 +16,11 @@ import org.springframework.web.bind.annotation.*;
 public class SignController {
 
       Customer customer = new Customer();
-      DBConnection dbConnection = new DBConnection();
 
     SignRepo signRepo = new SignRepo();
 
     @RequestMapping("/in")
         public Response signIn(@RequestBody SignIn sinned) {
-        System.out.println(   dbConnection.connect());
         signRepo.setConnection(dbConnection);
         Response response = new Response();
         boolean res= signRepo.checkCustomer(sinned.getUsername(), sinned.getPassword());
@@ -28,9 +31,8 @@ public class SignController {
         }
 
         @RequestMapping("/up")
-        public Response signUp(@RequestBody Customer User) {
+        public Response signUp(@RequestBody Customer User) throws SQLException {
 
-            System.out.println(   dbConnection.connect());
             signRepo.setConnection(dbConnection);
             boolean res= signRepo.addCustomer(User);
             Response response = new Response();
@@ -39,6 +41,8 @@ public class SignController {
         }
     @RequestMapping("/inManager")
     public Response signInM(@RequestBody SignIn sinned) {
+        signRepo.setConnection(dbConnection);
+
         Response response = new Response();
         response.setState("accepted");
         response.setId(1);
@@ -48,6 +52,7 @@ public class SignController {
 
     @RequestMapping("/upManager")
     public Response signUpM(@RequestBody Customer User) {
+        signRepo.setConnection(dbConnection);
         Response response = new Response();
         response.setState("accepted");
 
@@ -58,7 +63,6 @@ public class SignController {
 class SignIn{
     String username;
     String password;
-    String type;
     public SignIn(String username, String password) {
         this.username = username;
         this.password = password;
