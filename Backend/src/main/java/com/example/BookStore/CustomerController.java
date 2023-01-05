@@ -101,21 +101,21 @@ public class CustomerController {
         return bookRepo.getAllBooks();
     }
 
-    @PostMapping("/createCard")
+    @PostMapping("/createCard/{username}")
     public int createCard(@PathVariable String username) {
         cartRepo.setConnection(BookStoreApplication.dbConnection);
         return cartRepo.createCard(username);
     }
 
     //3. Add books to a shopping cart
-    @PostMapping("/addToCart")
+    @PostMapping("/addToCart/{cardID}")
     public boolean addToCart(@RequestBody Book book, @PathVariable int cardID) throws SQLException {
         cartRepo.setConnection(BookStoreApplication.dbConnection);
         return cartRepo.addBookToItemsAndCart(book.getBook_ISBN(), cardID);
     }
 
     //4. Remove books from a shopping cart
-    @PutMapping("/removeFromCart")
+    @PutMapping("/removeFromCart/{cardID}")
     public boolean removeFromCart(@RequestBody Book book, @PathVariable int cardID) {
         cartRepo.setConnection(BookStoreApplication.dbConnection);
         return cartRepo.removeBookFromItemsAndCart(book.getBook_ISBN(), cardID);
@@ -123,7 +123,7 @@ public class CustomerController {
 
     //4. Manage his shopping cart. This includes the following.
     //* • View the items in the cart
-    @GetMapping("/viewCart ")
+    @GetMapping("/viewCart/{cardID}")
     public shopping_cart viewCart(@PathVariable int cardID) {
         cartRepo.setConnection(BookStoreApplication.dbConnection);
         return cartRepo.getCart(cardID);
@@ -132,7 +132,7 @@ public class CustomerController {
     //5. Checkout a shopping cart
     //* • The customer is then required to provide a credit card number and its expiry date.
     //* This transaction is completed successfully if the credit card information is appropriate.
-    @PostMapping("/checkout")
+    @PostMapping("/checkout/{cardID}")
     public boolean checkout(@PathVariable int cardID) {
         cartRepo.setConnection(BookStoreApplication.dbConnection);
         return cartRepo.checkout_cart(cardID);
@@ -140,7 +140,7 @@ public class CustomerController {
 
     //6. Logout of the system
     @GetMapping("/logout/{username}")
-    public boolean logout(@PathVariable String username) {
+    public boolean logout(@PathVariable String username) throws SQLException {
         customerRepo.setConnection(BookStoreApplication.dbConnection);
         return customerRepo.customer_log_out(username);
     }
