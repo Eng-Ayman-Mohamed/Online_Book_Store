@@ -11,6 +11,7 @@ import Header from "../CustomerPage/components/Header";
 export default function Manager() {
   let nav = useNavigate();
   const location = useLocation();
+
   return (
     <div className="Manager">
       <Header cartid={5656} />
@@ -23,7 +24,7 @@ export default function Manager() {
             <span>Add new book</span>
           </li>
 
-          <li onClick={() => nav("/menu-items", { state: location.state })}>
+          <li onClick={() => nav("/PlaceOrder", { state: location.state })}>
             <h2>
               <RiSlideshowFill />
             </h2>{" "}
