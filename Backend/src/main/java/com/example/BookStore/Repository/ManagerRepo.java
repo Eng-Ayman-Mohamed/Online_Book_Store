@@ -13,7 +13,8 @@ public class ManagerRepo {
     public void setConnection(DBConnection connection) {
         this.connection = connection;
     }
-  public Manager getManager(String username) {
+
+    public Manager getManager(String username) {
         String query = "SELECT * FROM manager WHERE username = '" + username + "'";
         try {
             ResultSet resultSet = connection.getStatement().executeQuery(query);
@@ -33,6 +34,7 @@ public class ManagerRepo {
         }
         return null;
     }
+
     //Promote registered customer to manager
     //customer > userName, Phone, FName, LName, email, Password, promoted, Address, PromoteMN
     //manager >userName, Address, FName, LName, Phone, email, Password
@@ -72,16 +74,13 @@ public class ManagerRepo {
     }
 
 
-
     //* c. The top 10 selling books for the last three month
     public ArrayList<Book> get_top_10_books() {
         ArrayList<Book> books = new ArrayList<>();
         //book > Book_ISBN, title, Publication_Year, Category, price, amount, Publisher
         // shopping_cart> id, userName, amountRequired, total_price, state, Date
         //items > BookId, cart_id, amountRequired, Price
-        String query = "SELECT b.Book_ISBN, b.Title, b.Publisher, SUM(t.amountRequired) AS TotalQuantity FROM shopping_cart s," +
-                " book b,items t WHERE s.Date IS NOT NULL AND s.Date >= date_sub(current_date, INTERVAL 3 MONTH) " +
-                "AND s.id = t.cart_id  GROUP BY t.BookId ORDER BY SUM(t.amountRequired) DESC LIMIT 10";
+        String query = "SELECT b.Book_ISBN, b.Title, b.Publisher, SUM(t.amountRequired) AS TotalQuantity FROM shopping_cart s," + " book b,items t WHERE s.Date IS NOT NULL AND s.Date >= date_sub(current_date, INTERVAL 3 MONTH) " + "AND s.id = t.cart_id  GROUP BY t.BookId ORDER BY SUM(t.amountRequired) DESC LIMIT 10";
         try {
             var resultSet = connection.getStatement().executeQuery(query);
             while (resultSet.next()) {
@@ -103,10 +102,7 @@ public class ManagerRepo {
         ArrayList<Customer> customers = new ArrayList<>();
         //customer > userName, Phone, FName, LName, email, Password, promoted, Address, PromoteMN
         // shopping_cart> id, userName, amountRequired, total_price, state, Date
-        String query = "SELECT c.username, c.email, c.phone, c.address, SUM(s.total_price) AS TotalPrice FROM customer c" +
-                ", shopping_cart s " +
-                "WHERE s.Date IS NOT NULL AND s.Date >= date_sub(current_date, INTERVAL 3 MONTH) AND s.userName = c.username " +
-                "GROUP BY s.userName ORDER BY SUM(s.total_price) DESC LIMIT 5";
+        String query = "SELECT c.username, c.email, c.phone, c.address, SUM(s.total_price) AS TotalPrice FROM customer c" + ", shopping_cart s " + "WHERE s.Date IS NOT NULL AND s.Date >= date_sub(current_date, INTERVAL 3 MONTH) AND s.userName = c.username " + "GROUP BY s.userName ORDER BY SUM(s.total_price) DESC LIMIT 5";
         try {
             var resultSet = connection.getStatement().executeQuery(query);
             while (resultSet.next()) {
@@ -129,12 +125,8 @@ public class ManagerRepo {
         //shopping_cart> id, userName, amountRequired, total_price, state, Date
         //items > BookId, cart_id, amountRequired, Price
         //book > Book_ISBN, title, Publication_Year, Category, price, amount, Publisher
-
         ArrayList<Book> books = new ArrayList<>();
-        String query = "SELECT b.Book_ISBN, b.Title, b.Publisher, SUM(t.amountRequired) AS TotalQuantity, " +
-                "SUM(t.Price) AS TotalPrice FROM shopping_cart s," +
-                " book b,items t WHERE s.Date IS NOT NULL AND s.Date >= date_sub(current_date, INTERVAL 1 MONTH) " +
-                "AND s.id = t.cart_id AND t.BookId = b.Book_ISBN GROUP BY t.BookId ORDER BY SUM(t.amountRequired) DESC";
+        String query = "SELECT b.Book_ISBN, b.Title, b.Publisher, SUM(t.amountRequired) AS TotalQuantity, " + "SUM(t.Price) AS TotalPrice FROM shopping_cart s," + " book b,items t WHERE s.Date IS NOT NULL AND s.Date >= date_sub(current_date, INTERVAL 1 MONTH) " + "AND s.id = t.cart_id AND t.BookId = b.Book_ISBN GROUP BY t.BookId ORDER BY SUM(t.amountRequired) DESC";
         try {
             var resultSet = connection.getStatement().executeQuery(query);
             while (resultSet.next()) {
@@ -151,7 +143,4 @@ public class ManagerRepo {
         }
         return books;
     }
-
 }
-
-
