@@ -1,25 +1,25 @@
 import "./PlaceOrder.css";
 import React, { useEffect, useState } from "react";
 import { environment } from "../Environment";
-const CustomerTable = ({ location }) => {
+const CustomerTable = () => {
 
     let [customers,getcustomers]=React.useState([]); 
     useEffect(() => {
         let res;
-        async function confirmorder() {
+        async function getorders() {
             let result = await fetch(
                 `${environment.Host}/manager/viewOrders`,
                 {
-                    method: "POST",
+                    method: "get",
                     headers: {
                         "Content-type": "application/json",
                     },
                 },
             );
             res = await result.json();
-
+            getcustomers(res);
         }
-        confirmorder();
+        getorders();
 	}, []);
 
     function Confirmorder(id){
@@ -28,7 +28,7 @@ const CustomerTable = ({ location }) => {
             let result = await fetch(
                 `${environment.Host}/manager/confirmOrder`,
                 {
-                    method: "POST",
+                    method: "put",
                     headers: {
                         "Content-type": "application/json",
                     },
@@ -47,7 +47,7 @@ const CustomerTable = ({ location }) => {
             let result = await fetch(
                 `${environment.Host}/manager/removeOrder`,
                 {
-                    method: "POST",
+                    method: "put",
                     headers: {
                         "Content-type": "application/json",
                     },
