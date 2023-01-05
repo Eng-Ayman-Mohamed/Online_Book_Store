@@ -96,7 +96,7 @@ function SignUp() {
     });
     let message = await result.json();
     console.log(message);
-    if (message.state === "accepted") {
+    if (message == true) {
       nav("/homePage");
     } else {
       setError(() => {
