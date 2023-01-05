@@ -87,9 +87,9 @@ public class CustomerController {
     }
 
     @PostMapping("/createCard")
-    public int createCard(@PathVariable String username) {
+    public int createCard(@PathVariable String username) throws SQLException {
         cartRepo.setConnection(BookStoreApplication.dbConnection);
-        return cartRepo.createCard(username);
+        return cartRepo.createCart(username);
     }
 
     //3. Add books to a shopping cart
@@ -125,7 +125,7 @@ public class CustomerController {
 
     //6. Logout of the system
     @GetMapping("/logout/{username}")
-    public boolean logout(@PathVariable String username) {
+    public boolean logout(@PathVariable String username) throws SQLException {
         customerRepo.setConnection(BookStoreApplication.dbConnection);
         return customerRepo.customer_log_out(username);
     }

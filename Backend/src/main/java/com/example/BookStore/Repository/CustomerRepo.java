@@ -14,24 +14,6 @@ public class CustomerRepo {
         this.connection = connection;
     }
 
-    //userName, Phone, FName, LName, email, Password, promoted, Address, PromoteMN
-    Customer get_data(String username) throws SQLException {
-        String query = "SELECT * FROM manager WHERE (username = '" + username + "' OR email = '" + username + "')";
-        Customer customer = new Customer();
-        ResultSet resultSet = connection.getStatement().executeQuery(query);
-        if (resultSet.next()) {
-            customer.setUserName(resultSet.getString(1));
-            customer.setFname(resultSet.getString(2));
-            customer.setEmail(resultSet.getString(3));
-            customer.setAddress(resultSet.getString(4));
-            customer.setPhone(resultSet.getString(5));
-            customer.setPassword(resultSet.getString(6));
-            customer.setPromoted(resultSet.getInt(7));
-            customer.setPromoteMN(resultSet.getString(8));
-        }
-        return customer;
-    }
-
     public Customer getCustomer(String username) {
         String query = "SELECT * FROM customer WHERE username = '" + username + "'";
         try {
@@ -87,8 +69,10 @@ public class CustomerRepo {
                 count++;
                 String book_id = resultSet2.getString(1);
                 int amount = resultSet2.getInt(3);
+                System.out.println(amount);
                 query = "UPDATE book SET amount = amount + " + amount + " WHERE Book_ISBN = '" + book_id + "'";
                 connection.getStatement().executeUpdate(query);
+                System.out.println("ok");
                 resultSet2 = connection.getStatement().executeQuery(query1);
                 for (int i = 0; i < count; i++) {
                     resultSet2.next();
@@ -105,23 +89,6 @@ public class CustomerRepo {
         return true;
     }
 
-
-    public int viewCartPrice(int cart_id) throws SQLException {
-        int price = 0;
-        try {
-            String query = "SELECT * FROM shopping_cart WHERE id = " + cart_id;
-            ResultSet resultSet = connection.getStatement().executeQuery(query);
-            if (resultSet.next()) {
-                price = resultSet.getInt("total_price");
-                return price;
-            }
-
-        } catch (Exception r) {
-            return 0;
-        }
-        return price;
-    }
-
     public ArrayList<Book> viewCart(int cart_id) throws SQLException {
         int count = 0;
         ArrayList<Book> books = new ArrayList<>();
@@ -135,8 +102,10 @@ public class CustomerRepo {
                 String book_id = resultSet.getString(1);
                 int amount = resultSet.getInt(3);
                 //get book info
+
                 String query = "SELECT * FROM book WHERE book_ISBN = '" + book_id + "'";
                 resultSet = connection.getStatement().executeQuery(query);
+
                 if (resultSet.next()) {
                     Book book = new Book();
                     book.setBook_ISBN(resultSet.getString(1));
