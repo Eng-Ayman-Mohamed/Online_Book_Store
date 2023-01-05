@@ -1,5 +1,6 @@
 package com.example.BookStore.Repository;
 
+import com.example.BookStore.Models.Items;
 import com.example.BookStore.Models.shopping_cart;
 
 import java.sql.ResultSet;
@@ -39,14 +40,14 @@ public class CartRepo {
             //get price of book
             query = "SELECT *FROM Book WHERE book_ISBN = '" + ISBN + "'";
             ResultSet r = connection.getStatement().executeQuery(query);
-            if (r.next()) {
+            if (r.next()){
                 pr = r.getInt(5);
-            } else {
+            }else {
                 return false;
             }
 
             //update amount of book
-            if (r.getInt("amount") == 0) {
+            if (r.getInt("amount") == 0){
                 return false;
             }
             query = "UPDATE book SET amount = amount - 1 WHERE book_ISBN = '" + ISBN + "'";
@@ -54,7 +55,7 @@ public class CartRepo {
             //check if cart contain this item => increment it
             query = "SELECT *FROM items WHERE cart_id = " + cartId + " AND bookId = '" + ISBN + "'";
             //cart has this item
-            if (connection.getStatement().executeQuery(query).next()) {
+            if (connection.getStatement().executeQuery(query).next()){
                 System.out.println("yes");
                 query = "UPDATE items SET amountRequired = amountRequired + 1, price = price + " + pr + " WHERE cart_id = " + cartId + " AND bookId = '" + ISBN + "'";
                 connection.getStatement().executeUpdate(query);
@@ -65,23 +66,38 @@ public class CartRepo {
             }
             query = "UPDATE shopping_cart SET total_price =  total_price + " + pr + ", amountRequired = amountRequired + 1" + " WHERE id = " + cartId;
             connection.getStatement().executeUpdate(query);
-        } catch (Exception e) {
+        }catch (Exception e){
             System.out.println(e);
             return false;
         }
         return true;
-    }
 
+        /*
+        String query ;//= "INSERT INTO items VALUES (" + bookId + "," + cartId + "," + amount + ","+price+")";
+        try {
+         //   connection.getStatement().executeUpdate(query);
+            query = "UPDATE shopping_cart SET amountRequired = amountRequired + " + amount + " WHERE id = " + cartId;
+            connection.getStatement().executeUpdate(query);
+            query = "UPDATE shopping_cart SET total_price = total_price + (SELECT price FROM book WHERE Book_ISBN = " + bookId + ") * " + amount + " WHERE id = " + cartId;
+            connection.getStatement().executeUpdate(query);
+            return true;
+        } catch (Exception ex) {
+            System.out.println("ERROR: " + ex);
+        }
+        return false;
+        */
+    }
     public boolean removeBookFromItemsAndCart(String ISBN, int cartId) {
+
         String query;
         int pr;
         try {
             //get price of book
             query = "SELECT * FROM Book WHERE book_ISBN = '" + ISBN + "'";
             ResultSet r = connection.getStatement().executeQuery(query);
-            if (r.next()) {
+            if (r.next()){
                 pr = r.getInt(5);
-            } else {
+            }else {
                 return false;
             }
 
@@ -89,7 +105,7 @@ public class CartRepo {
             query = "SELECT * FROM Items WHERE cart_id = " + cartId + " AND bookId = '" + ISBN + "'";
 
             //cart has this item
-            if (connection.getStatement().executeQuery(query).next()) {
+            if (connection.getStatement().executeQuery(query).next()){
                 query = "UPDATE Items SET amountRequired = amountRequired - 1, price = price - " + pr + " WHERE cart_id = " + cartId + " AND bookId = '" + ISBN + "'";
                 connection.getStatement().executeUpdate(query);
 
@@ -102,19 +118,34 @@ public class CartRepo {
 
                 query = "SELECT * FROM Items WHERE cart_id = " + cartId + " AND bookId = '" + ISBN + "'";
                 ResultSet resultSet = connection.getStatement().executeQuery(query);
-                if (resultSet.next()) {
-                    if (resultSet.getInt("amountRequired") == 0) {
+                if (resultSet.next()){
+                    if (resultSet.getInt("amountRequired") == 0){
                         query = "DELETE FROM Items WHERE cart_id = " + cartId;
                         connection.getStatement().executeUpdate(query);
                     }
                 }
             }
-        } catch (Exception e) {
+
+        }catch (Exception e){
             return false;
         }
         return true;
-    }
 
+        /*
+        String query = "DELETE FROM items WHERE BookId = " + bookId + " AND cart_id = " + cartId;
+        try {
+            connection.getStatement().executeUpdate(query);
+            query = "UPDATE shopping_cart SET amountRequired = amountRequired - " + amount + " WHERE id = " + cartId;
+            connection.getStatement().executeUpdate(query);
+            query = "UPDATE shopping_cart SET total_price = total_price - (SELECT price FROM book WHERE Book_ISBN = " + bookId + ") * " + amount + " WHERE id = " + cartId;
+            connection.getStatement().executeUpdate(query);
+            return true;
+        } catch (Exception ex) {
+            System.out.println("ERROR: " + ex);
+        }
+        return false;
+         */
+    }
     public boolean checkout_cart(int cartId) {
         String query = "UPDATE shopping_cart SET state = true WHERE id = " + cartId;
         try {
@@ -125,6 +156,9 @@ public class CartRepo {
         }
         return false;
     }
+
+    //shopping_cart
+    //id, userName, amountRequired, total_price, state
 
     public shopping_cart getCart(int cartId) {
         String query = "SELECT * FROM shopping_cart WHERE id = " + cartId + "'";
@@ -145,4 +179,5 @@ public class CartRepo {
         }
         return null;
     }
+
 }

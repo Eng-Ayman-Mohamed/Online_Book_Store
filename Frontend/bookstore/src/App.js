@@ -7,17 +7,23 @@ import Customerpage from "./CustomerPage/Customerpage";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Search from "./SearchPage/Search";
+import ShoppingCart from "./ShoppingCart/ShoppingCart";
+import CustomerTable from "./components/CustomerTable";
+import OrderTable from "./components/OrderTable";
 function App() {
 	return (
 		<Router>
 			<Routes>
-				<Route path='/' element={<Signin />} />
-				<Route path='/Customerpage' element={<Customerpage />} />
+				<Route path='/Signin' element={<Signin />} />
+				<Route path='/' element={<Customerpage />} />
 				<Route path='/signup' element={<SignUp />} />
-        <Route path='/signin' element={<Signin />} />
+				<Route path='/signin' element={<Signin />} />
 				<Route path='/payment' element={<Payment />} />
 				<Route path='/Customerpage/Profile' element={<Profile />} />
 				<Route path='/Search' element={<Search />} />
+				<Route path='/Cart' element={<ShoppingCart />} />
+				<Route path='/CustomerTable' element={<CustomerTable />} />
+				<Route path='/orders' element={<OrderTable />} />
 			</Routes>
 		</Router>
 	);
