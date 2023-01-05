@@ -46,8 +46,7 @@ export default function Manager() {
         </ul>
       </nav>
       <h1 className="Welcome">
-        Welcome, <span>Mahmoud Fathallah</span>
-        {/* {location.state.userName} */}
+        Welcome, <span>{location.state.userName}</span>
       </h1>
       {/* <div className="admin-container">
       <h1 className="Logo2">Eat Nine</h1>
