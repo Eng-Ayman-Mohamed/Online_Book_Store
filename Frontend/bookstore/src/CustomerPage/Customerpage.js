@@ -1,7 +1,7 @@
 import React from "react";
 import "./Customerpage.css";
 import BookCard from "./components/BookCard";
-import { BsFillCartCheckFill } from "react-icons/bs";
+// import { BsFillCartCheckFill } from "react-icons/bs";
 import { useNavigate, useLocation } from "react-router-dom";
 import { environment } from "../Environment";
 import Header from "./components/Header";
