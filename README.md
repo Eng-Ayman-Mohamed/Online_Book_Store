@@ -1,11 +1,11 @@
 # Online_Book_Store
 Online_Book_Store with mysql and react
 
-                                                                                 Alexandria University
-                                                                                 Prof. Dr. Yousry Taha
-                                                                                 Faculty of Engineering
-                                                                                   Database Systems
-                                                                        Computer and Systems Engineering Dept.
+                                                              Alexandria University
+                                                             Prof. Dr. Yousry Taha
+                                                             Faculty of Engineering
+                                                                Database Systems
+                                                       Computer and Systems Engineering Dept.
 Project
 Order Processing System
 You are required to analyze, design and implement a database system to support the operations of a simplified online bookstore. Also, you are required to create the necessary forms to perform these operations. The data and functional requirements of the system are as follows.
