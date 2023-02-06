@@ -8,24 +8,31 @@ Online_Book_Store with mysql and react
                                                        Computer and Systems Engineering Dept.
 Project
 Order Processing System
-You are required to analyze, design and implement a database system to support the operations of a simplified online bookstore. Also, you are required to create the necessary forms to perform these operations. The data and functional requirements of the system are as follows.
-PART 1
+You are required to analyze, design and implement a database system to support the operations of a simplified online bookstore.<br/>
+Also, you are required to create the necessary forms to perform these operations. The data and functional requirements of the system are as follows.<br/>
+
+PART 1 <br/>
+
 I. Database relations
 For each book in the store, the system keeps the book’s ISBN number, title, author(s), publisher, publication year, selling price, and category.
 The book’s category can be one of the following: "Science", "Art", "Religion", "History" and "Geography". The system has to keep track of the names of publishers, their addresses and telephone numbers.
-Information about book orders is also maintained.
+Information about book orders is also maintained.<br/>
+
 II. Operations
 Assume that the user of the system can do the following operations: -
 1. Add new books
-To add a new book, the user enters the properties of the new book along with a threshold (the minimum quantity in stock to be maintained for that book).
+   * To add a new book, the user enters the properties of the new book along with a threshold (the minimum quantity in stock to be maintained for that book).
 2. Modify existing books
-For updating an existing book, the user first searches for the book then he does the required update. For a given book, the user can update the quantity in stock when a copy or more of the book is sold. The user cannot update the quantity of a book if this update will cause the quantity of a book in stock to be negative. (hint: trigger before update).
+   * For updating an existing book, the user first searches for the book then he does the required update. For a given book, the user can update the quantity in stock when a copy or more of the book is sold. The user cannot update the quantity of a book if this update will cause the quantity of a book in stock to be negative. (hint: trigger before update).
+   * 
 3. Place orders on books
-An order with constant quantity is placed only when the quantity of a book drops from above a given threshold (the minimum quantity in stock) to below the given threshold (hint: trigger after update in books table).
+  * An order with constant quantity is placed only when the quantity of a book drops from above a given threshold (the minimum quantity in stock) to below the given threshold (hint: trigger after update in books table).
+  
 4. Confirm orders
-The user can confirm an order when receiving the ordered quantity from the book’s publisher; the quantity of the book in store automatically increases with the quantity specified in the order. Assume that deleting the order means that the order is received from publisher. (hint: trigger before deletion from orders table).
+   * The user can confirm an order when receiving the ordered quantity from the book’s publisher; the quantity of the book in store automatically increases with the quantity specified in the order. Assume that deleting the order means that the order is received from publisher. (hint: trigger before deletion from orders table).
+
 5. Search for books
-The user can search for a book by ISBN, and title. The user can search for books of a specific Category, author or publisher.
+   * The user can search for a book by ISBN, and title. The user can search for books of a specific Category, author or publisher.
 III. Physical Design
 Do an appropriate physical design assuming the following statistics on data volume and work load statistics.
 The statistics listed below are important for physical database design. However, they are used for illustration purposes and are not intended to characterize any specific real system.
