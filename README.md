@@ -1,5 +1,5 @@
 # Online_Book_Store
-Online_Book_Store with mysql and react
+Online_Book_Store with mysq , Spring boot for backend and react for frontend part . 
 
                                                               Alexandria University
                                                              Prof. Dr. Yousry Taha
