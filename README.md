@@ -2,7 +2,7 @@
 Online_Book_Store with mysq , Spring boot for backend and react for frontend part . 
 
                                                               Alexandria University
-                                                             Prof. Dr. Yousry Taha
+                                                            directed by Prof. Dr. Yousry Taha
                                                              Faculty of Engineering
                                                                 Database Systems
                                                        Computer and Systems Engineering Dept.
