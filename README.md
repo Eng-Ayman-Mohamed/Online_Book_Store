@@ -1,4 +1,4 @@
-# Online_Book_Store some functionality not ney worked correctly.
+# Online_Book_Store .
 Online_Book_Store with mysq , Spring boot for backend and react for frontend part . 
 
 
